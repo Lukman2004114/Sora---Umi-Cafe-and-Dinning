@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sora & Umi — A Japanese café and immersive underwater dining experience. Where the sky meets the sea." />
+  <title>空と海 · Sora & Umi Café & Dining</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Serif+JP:wght@200;300;400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       AMBIENT LAYERS (rendered by JS)
+  ══════════════════════════════════════════════ -->
+  <canvas id="sakura-canvas" aria-hidden="true"></canvas>
+  <div id="fish-layer" aria-hidden="true"></div>
+  <div id="bubble-layer" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ══════════════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="#home" class="logo" aria-label="Sora & Umi Home">
+        <span class="logo-jp" aria-hidden="true">空と海</span>
+        <span class="logo-divider" aria-hidden="true">·</span>
+        <span class="logo-en">Sora &amp; Umi</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#aquarium">Aquarium</a></li>
+        <li><a href="#cafe">Café Menu</a></li>
+        <li><a href="#dining">Dining</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#reservation" class="nav-cta" aria-label="Reserve a table">Reserve a Table</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1: HERO — 空 (SKY)
+  ══════════════════════════════════════════════ -->
+  <section id="home" class="hero" aria-label="Hero section">
+
+    <!-- Sky gradient + cloud layer -->
+    <div class="hero-sky" aria-hidden="true">
+      <!-- SVG Clouds -->
+      <svg class="cloud cloud-1" viewBox="0 0 300 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="150" cy="50" rx="140" ry="30" fill="white" opacity="0.6"/>
+        <ellipse cx="90"  cy="45" rx="80"  ry="22" fill="white" opacity="0.7"/>
+        <ellipse cx="210" cy="42" rx="90"  ry="20" fill="white" opacity="0.5"/>
+      </svg>
+      <svg class="cloud cloud-2" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="100" cy="38" rx="90" ry="20" fill="white" opacity="0.5"/>
+        <ellipse cx="60"  cy="34" rx="55" ry="16" fill="white" opacity="0.6"/>
+        <ellipse cx="150" cy="36" rx="60" ry="18" fill="white" opacity="0.4"/>
+      </svg>
+      <svg class="cloud cloud-3" viewBox="0 0 260 70" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <ellipse cx="130" cy="44" rx="120" ry="26" fill="white" opacity="0.45"/>
+        <ellipse cx="70"  cy="40" rx="70"  ry="18" fill="white" opacity="0.5"/>
+        <ellipse cx="190" cy="38" rx="75"  ry="20" fill="white" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <!-- Sakura branch silhouette -->
+    <div class="sakura-branch" aria-hidden="true">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0,280 Q60,200 100,160 Q130,120 160,80 Q180,50 200,20" stroke="#5a3040" stroke-width="3" fill="none" opacity="0.6"/>
+        <path d="M100,160 Q140,140 170,130" stroke="#5a3040" stroke-width="2" fill="none" opacity="0.5"/>
+        <path d="M130,120 Q100,100 80,90" stroke="#5a3040" stroke-width="1.5" fill="none" opacity="0.4"/>
+        <path d="M160,80 Q190,60 210,50" stroke="#5a3040" stroke-width="2" fill="none" opacity="0.5"/>
+        <!-- Blossoms -->
+        <circle cx="170" cy="130" r="5" fill="#FFB7C5" opacity="0.8"/>
+        <circle cx="155" cy="125" r="4" fill="#FF9AB5" opacity="0.7"/>
+        <circle cx="175" cy="120" r="6" fill="#FFB7C5" opacity="0.9"/>
+        <circle cx="80"  cy="90"  r="5" fill="#FFB7C5" opacity="0.7"/>
+        <circle cx="90"  cy="82"  r="4" fill="#FF9AB5" opacity="0.8"/>
+        <circle cx="210" cy="50"  r="6" fill="#FFB7C5" opacity="0.9"/>
+        <circle cx="200" cy="42"  r="4" fill="#FF9AB5" opacity="0.7"/>
+        <circle cx="220" cy="44"  r="5" fill="#FFB7C5" opacity="0.8"/>
+      </svg>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero-content">
+      <div class="hero-kanji reveal-up" aria-label="Sora to Umi — Sky and Sea">空と海</div>
+      <h1 class="hero-heading reveal-up delay-1">Where Sky Meets Sea</h1>
+      <p class="hero-subtext reveal-up delay-2">
+        A Japanese café and immersive dining experience<br />
+        beneath the waves — where every course is a journey.
+      </p>
+      <div class="hero-btns reveal-up delay-3">
+        <a href="#aquarium" class="btn-primary">Explore Aquarium</a>
+        <a href="#cafe" class="btn-ghost">View Menu</a>
+      </div>
+    </div>
+
+    <!-- Seigaiha wave + horizon -->
+    <div class="hero-ocean" aria-hidden="true">
+      <svg class="seigaiha-hero" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,60 C120,20 240,100 360,60 C480,20 600,100 720,60 C840,20 960,100 1080,60 C1200,20 1320,100 1440,60 L1440,120 L0,120 Z" fill="#1B4965" opacity="0.8"/>
+        <path d="M0,80 C180,40 360,110 540,80 C720,50 900,110 1080,80 C1260,50 1380,100 1440,80 L1440,120 L0,120 Z" fill="#0A2342" opacity="0.9"/>
+      </svg>
+    </div>
+
+    <!-- Floating lanterns -->
+    <div class="lantern lantern-1" aria-hidden="true">
+      <svg viewBox="0 0 40 70" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="0" x2="20" y2="8" stroke="#C9A84C" stroke-width="1.5"/>
+        <ellipse cx="20" cy="10" rx="8" ry="4" fill="#C9A84C"/>
+        <rect x="12" y="10" width="16" height="42" rx="4" fill="#F4A261" opacity="0.9"/>
+        <rect x="14" y="12" width="12" height="38" rx="3" fill="#FFD4A3" opacity="0.4"/>
+        <ellipse cx="20" cy="52" rx="8" ry="4" fill="#C9A84C"/>
+        <line x1="20" y1="56" x2="20" y2="62" stroke="#C9A84C" stroke-width="1.5"/>
+        <line x1="20" y1="62" x2="16" y2="70" stroke="#C9A84C" stroke-width="1"/>
+        <line x1="20" y1="62" x2="24" y2="70" stroke="#C9A84C" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="lantern lantern-2" aria-hidden="true">
+      <svg viewBox="0 0 40 70" xmlns="http://www.w3.org/2000/svg">
+        <line x1="20" y1="0" x2="20" y2="8" stroke="#C9A84C" stroke-width="1.5"/>
+        <ellipse cx="20" cy="10" rx="8" ry="4" fill="#C9A84C"/>
+        <rect x="12" y="10" width="16" height="42" rx="4" fill="#F4A261" opacity="0.9"/>
+        <rect x="14" y="12" width="12" height="38" rx="3" fill="#FFD4A3" opacity="0.4"/>
+        <ellipse cx="20" cy="52" rx="8" ry="4" fill="#C9A84C"/>
+        <line x1="20" y1="56" x2="20" y2="62" stroke="#C9A84C" stroke-width="1.5"/>
+        <line x1="20" y1="62" x2="16" y2="70" stroke="#C9A84C" stroke-width="1"/>
+        <line x1="20" y1="62" x2="24" y2="70" stroke="#C9A84C" stroke-width="1"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2: STORY — 哲学 (PHILOSOPHY)
+  ══════════════════════════════════════════════ -->
+  <section id="story" class="story-section" aria-labelledby="story-heading">
+    <div class="seigaiha-divider" aria-hidden="true"></div>
+    <div class="section-inner">
+      <div class="story-layout">
+        <div class="story-text reveal-up">
+          <span class="section-label">Our Philosophy · 哲学</span>
+          <h2 id="story-heading" class="section-heading">Between Heaven<br /><em>and Ocean</em></h2>
+          <p class="body-text">
+            Sora &amp; Umi is built upon the philosophy of <em>wabi-sabi</em> — the beauty found in impermanence, simplicity, and the natural world. We believe that a meal is not merely sustenance; it is a passage through time, light, and water.
+          </p>
+          <p class="body-text">
+            From the pale blush of sakura drifting through a morning sky, to the stillness of deep ocean where bioluminescent creatures drift in silence — every moment at our table is a quiet invitation to be present.
+          </p>
+          <a href="#experience" class="btn-text-link">Discover the Experience →</a>
+        </div>
+        <div class="story-visual reveal-up delay-2" aria-hidden="true">
+          <!-- Samurai silhouette — subtle, ink-brush style -->
+          <svg class="samurai-silhouette" viewBox="0 0 200 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Body -->
+            <ellipse cx="100" cy="60" rx="20" ry="22" fill="#0A2342"/>
+            <!-- Neck -->
+            <rect x="96" y="78" width="8" height="12" fill="#0A2342"/>
+            <!-- Shoulders / Kimono -->
+            <path d="M60,90 Q100,82 140,90 L155,200 Q100,220 45,200 Z" fill="#0A2342" opacity="0.85"/>
+            <!-- Hakama / lower body -->
+            <path d="M55,195 Q100,215 145,195 L150,320 Q100,340 50,320 Z" fill="#0A2342" opacity="0.75"/>
+            <!-- Left arm holding sword -->
+            <path d="M60,100 Q30,150 20,220" stroke="#0A2342" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <!-- Katana -->
+            <line x1="20" y1="220" x2="5" y2="100" stroke="#C9A84C" stroke-width="2" opacity="0.7"/>
+            <rect x="16" y="218" width="8" height="6" fill="#C9A84C" opacity="0.6"/>
+            <!-- Right arm -->
+            <path d="M140,100 Q160,140 165,190" stroke="#0A2342" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <!-- Feet -->
+            <ellipse cx="75"  cy="340" rx="12" ry="6" fill="#0A2342" opacity="0.7"/>
+            <ellipse cx="125" cy="340" rx="12" ry="6" fill="#0A2342" opacity="0.7"/>
+            <!-- Mon (family crest) — simple circle -->
+            <circle cx="100" cy="145" r="12" stroke="#C9A84C" stroke-width="1" fill="none" opacity="0.5"/>
+            <circle cx="100" cy="145" r="6"  fill="#C9A84C" opacity="0.2"/>
+          </svg>
+          <div class="story-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3: AQUARIUM — 水族館
+  ══════════════════════════════════════════════ -->
+  <section id="aquarium" class="aquarium-section" aria-labelledby="aquarium-heading">
+    <!-- Bioluminescent particles (JS) -->
+    <div class="bio-particles" aria-hidden="true" id="bio-particles"></div>
+
+    <div class="section-inner">
+      <div class="section-header reveal-up">
+        <span class="section-label">Our Aquarium · 水族館</span>
+        <h2 id="aquarium-heading" class="section-heading">The Floating World</h2>
+        <p class="section-sub">Discover our underwater residents — each one a living artwork.</p>
+      </div>
+
+      <div class="aquarium-grid">
+        <!-- Koi -->
+        <article class="aquarium-card reveal-up delay-1" aria-label="Koi Fish exhibit">
+          <div class="card-glow card-glow-gold"></div>
+          <div class="card-image">
+            <div class="fish-illustration koi-illustration" aria-hidden="true">
+              <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="100" cy="60" rx="70" ry="30" fill="#E85D04" opacity="0.9"/>
+                <ellipse cx="100" cy="60" rx="60" ry="22" fill="#F48C06" opacity="0.7"/>
+                <!-- Scales pattern -->
+                <path d="M50,50 Q60,40 70,50" stroke="#FFB347" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <path d="M70,45 Q80,35 90,45" stroke="#FFB347" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <path d="M90,48 Q100,38 110,48" stroke="#FFB347" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <path d="M55,60 Q65,50 75,60" stroke="#FFB347" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- White patches -->
+                <ellipse cx="85" cy="55" rx="18" ry="10" fill="white" opacity="0.4"/>
+                <ellipse cx="115" cy="62" rx="12" ry="8" fill="white" opacity="0.3"/>
+                <!-- Eye -->
+                <circle cx="160" cy="56" r="6" fill="white"/>
+                <circle cx="161" cy="56" r="3" fill="#1a1a1a"/>
+                <circle cx="162" cy="55" r="1" fill="white"/>
+                <!-- Tail -->
+                <path d="M30,60 Q10,40 5,30" stroke="#E85D04" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.8"/>
+                <path d="M30,60 Q8,70 5,85" stroke="#F48C06" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
+                <!-- Fins -->
+                <path d="M100,30 Q110,15 120,30" stroke="#FFB347" stroke-width="3" fill="#FFB347" opacity="0.5"/>
+                <path d="M80,88 Q85,98 100,90" fill="#E85D04" opacity="0.6"/>
+                <!-- Water ripple -->
+                <ellipse cx="100" cy="90" rx="50" ry="8" stroke="#2CA6A4" stroke-width="1" fill="none" opacity="0.3"/>
+                <ellipse cx="100" cy="95" rx="35" ry="5" stroke="#2CA6A4" stroke-width="0.8" fill="none" opacity="0.2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-species">
+              <span class="species-en">Koi Fish</span>
+              <span class="species-jp">錦鯉</span>
+            </div>
+            <p class="card-desc">Living jewels drifting through liquid light — embodying perseverance, strength, and good fortune in Japanese culture.</p>
+          </div>
+        </article>
+
+        <!-- Jellyfish -->
+        <article class="aquarium-card reveal-up delay-2" aria-label="Moon Jellyfish exhibit">
+          <div class="card-glow card-glow-teal"></div>
+          <div class="card-image">
+            <div class="fish-illustration jelly-illustration" aria-hidden="true">
+              <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+                <!-- Bell -->
+                <ellipse cx="100" cy="55" rx="55" ry="40" fill="#7CCBC2" opacity="0.25"/>
+                <ellipse cx="100" cy="50" rx="50" ry="35" fill="#2CA6A4" opacity="0.3"/>
+                <ellipse cx="100" cy="48" rx="45" ry="28" fill="#5BC0BE" opacity="0.4"/>
+                <!-- Inner pattern -->
+                <circle cx="100" cy="48" r="18" fill="#0E3A43" opacity="0.5"/>
+                <circle cx="100" cy="48" r="12" stroke="#7CCBC2" stroke-width="1" fill="none" opacity="0.5"/>
+                <circle cx="85" cy="42" r="6"  stroke="#7CCBC2" stroke-width="1" fill="none" opacity="0.4"/>
+                <circle cx="115" cy="42" r="6" stroke="#7CCBC2" stroke-width="1" fill="none" opacity="0.4"/>
+                <!-- Glow halo -->
+                <ellipse cx="100" cy="48" rx="55" ry="38" stroke="#2CA6A4" stroke-width="2" fill="none" opacity="0.5"/>
+                <!-- Tentacles -->
+                <path d="M70,88 Q65,105 62,125" stroke="#5BC0BE" stroke-width="1.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+                <path d="M80,90 Q75,108 71,130" stroke="#7CCBC2" stroke-width="1"   fill="none" opacity="0.4" stroke-linecap="round"/>
+                <path d="M90,92 Q88,112 85,135" stroke="#5BC0BE" stroke-width="1.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+                <path d="M100,93 Q100,113 100,138" stroke="#2CA6A4" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
+                <path d="M110,92 Q112,112 115,135" stroke="#7CCBC2" stroke-width="1.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+                <path d="M120,90 Q125,108 129,130" stroke="#5BC0BE" stroke-width="1"   fill="none" opacity="0.4" stroke-linecap="round"/>
+                <path d="M130,88 Q135,105 138,125" stroke="#2CA6A4" stroke-width="1.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-species">
+              <span class="species-en">Moon Jellyfish</span>
+              <span class="species-jp">月水母</span>
+            </div>
+            <p class="card-desc">Ethereal drifters pulsing in silence — they move with a rhythm as ancient as the tides, illuminated by their own quiet light.</p>
+          </div>
+        </article>
+
+        <!-- Sea Turtle -->
+        <article class="aquarium-card reveal-up delay-3" aria-label="Sea Turtle exhibit">
+          <div class="card-glow card-glow-green"></div>
+          <div class="card-image">
+            <div class="fish-illustration turtle-illustration" aria-hidden="true">
+              <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+                <!-- Shell -->
+                <ellipse cx="100" cy="65" rx="55" ry="42" fill="#2D6A4F" opacity="0.9"/>
+                <!-- Shell pattern -->
+                <ellipse cx="100" cy="65" rx="35" ry="28" fill="#1B4332" opacity="0.8"/>
+                <path d="M80,45 L100,37 L120,45 L128,65 L120,85 L100,93 L80,85 L72,65 Z" fill="#40916C" opacity="0.4"/>
+                <path d="M85,50 L100,44 L115,50" stroke="#52B788" stroke-width="1" fill="none" opacity="0.5"/>
+                <path d="M72,65 L128,65" stroke="#52B788" stroke-width="1" fill="none" opacity="0.4"/>
+                <path d="M80,80 L100,86 L120,80" stroke="#52B788" stroke-width="1" fill="none" opacity="0.5"/>
+                <!-- Head -->
+                <ellipse cx="150" cy="60" rx="18" ry="14" fill="#2D6A4F"/>
+                <ellipse cx="155" cy="58" rx="12" ry="9"  fill="#40916C" opacity="0.7"/>
+                <!-- Eyes -->
+                <circle cx="158" cy="55" r="4" fill="#1B4332"/>
+                <circle cx="159" cy="54" r="1.5" fill="white"/>
+                <!-- Front flippers -->
+                <path d="M80,42 Q55,25 35,20" stroke="#2D6A4F" stroke-width="14" fill="none" stroke-linecap="round"/>
+                <path d="M120,42 Q140,28 160,22" stroke="#2D6A4F" stroke-width="10" fill="none" stroke-linecap="round"/>
+                <!-- Back flippers -->
+                <path d="M78,88 Q55,105 38,108" stroke="#2D6A4F" stroke-width="10" fill="none" stroke-linecap="round"/>
+                <path d="M122,88 Q142,103 158,107" stroke="#2D6A4F" stroke-width="8" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-species">
+              <span class="species-en">Sea Turtle</span>
+              <span class="species-jp">海亀</span>
+            </div>
+            <p class="card-desc">Ancient navigators of the deep, they glide with unhurried grace — living symbols of longevity, wisdom, and the ocean's enduring patience.</p>
+          </div>
+        </article>
+
+        <!-- Tuna -->
+        <article class="aquarium-card reveal-up delay-4" aria-label="Bluefin Tuna exhibit">
+          <div class="card-glow card-glow-blue"></div>
+          <div class="card-image">
+            <div class="fish-illustration tuna-illustration" aria-hidden="true">
+              <svg viewBox="0 0 200 110" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body -->
+                <path d="M30,55 Q80,20 150,55 Q80,90 30,55 Z" fill="#1B3A6B" opacity="0.9"/>
+                <path d="M30,55 Q80,25 145,55 Q80,85 30,55 Z" fill="#264F8C" opacity="0.7"/>
+                <!-- Lateral line -->
+                <path d="M40,55 Q90,48 145,55" stroke="#4A78C4" stroke-width="1" fill="none" opacity="0.5"/>
+                <!-- Silver belly -->
+                <path d="M35,55 Q85,70 145,55 Q85,80 35,55 Z" fill="#8BA7D4" opacity="0.3"/>
+                <!-- Dorsal fin -->
+                <path d="M90,32 Q100,15 115,30 Q105,28 100,35 Q95,32 90,32 Z" fill="#1B3A6B" opacity="0.8"/>
+                <!-- Pectoral fin -->
+                <path d="M105,55 Q120,45 130,60" fill="#264F8C" opacity="0.6"/>
+                <!-- Tail -->
+                <path d="M32,55 Q15,35 5,20" stroke="#1B3A6B" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.9"/>
+                <path d="M32,55 Q13,68 5,85" stroke="#264F8C" stroke-width="8"  fill="none" stroke-linecap="round" opacity="0.8"/>
+                <!-- Eye -->
+                <circle cx="148" cy="52" r="7" fill="white" opacity="0.9"/>
+                <circle cx="149" cy="52" r="4" fill="#0D1B2A"/>
+                <circle cx="150" cy="51" r="1.5" fill="white"/>
+                <!-- Speed lines -->
+                <path d="M50,40 L70,38" stroke="#4A78C4" stroke-width="0.8" opacity="0.3"/>
+                <path d="M45,55 L60,53" stroke="#4A78C4" stroke-width="0.8" opacity="0.3"/>
+                <path d="M50,70 L68,68" stroke="#4A78C4" stroke-width="0.8" opacity="0.3"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-species">
+              <span class="species-en">Bluefin Tuna</span>
+              <span class="species-jp">本鮪</span>
+            </div>
+            <p class="card-desc">The sovereign of open water — sleek, powerful, and breathtaking in motion. A creature that has commanded reverence in Japanese culture for centuries.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4: CAFÉ MENU — カフェ
+  ══════════════════════════════════════════════ -->
+  <section id="cafe" class="cafe-section" aria-labelledby="cafe-heading">
+    <div class="section-inner">
+      <div class="section-header reveal-up">
+        <span class="section-label">Café Menu · カフェメニュー</span>
+        <h2 id="cafe-heading" class="section-heading">Whispers of the Sea</h2>
+        <p class="section-sub">Handcrafted drinks and delicacies inspired by nature's quiet moments.</p>
+      </div>
+
+      <div class="menu-tabs reveal-up delay-1" role="tablist" aria-label="Menu categories">
+        <button class="menu-tab active" role="tab" aria-selected="true"  data-tab="drinks">Drinks</button>
+        <button class="menu-tab"        role="tab" aria-selected="false" data-tab="sweets">Sweets</button>
+      </div>
+
+      <div class="cafe-grid menu-panel active" id="cafe-drinks" role="tabpanel" aria-hidden="false">
+        <!-- Matcha Latte -->
+        <article class="menu-card cafe-card reveal-up delay-1" aria-label="Matcha Latte">
+          <div class="menu-card-img">
+            <div class="drink-visual matcha-visual" aria-hidden="true">
+              <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+                <rect x="25" y="40" width="70" height="90" rx="6" fill="#2D6A4F" opacity="0.2"/>
+                <rect x="28" y="42" width="64" height="86" rx="5" fill="#1B4332" opacity="0.15"/>
+                <!-- Cup body -->
+                <path d="M30,50 Q30,130 35,135 L85,135 Q90,130 90,50 Z" fill="#CFEDE7" opacity="0.9"/>
+                <path d="M30,50 Q30,80 32,95 L88,95 Q90,80 90,50 Z" fill="#52B788" opacity="0.7"/>
+                <!-- Latte art foam -->
+                <ellipse cx="60" cy="52" rx="27" ry="6" fill="white" opacity="0.95"/>
+                <path d="M45,50 Q55,46 60,50 Q65,46 75,50" stroke="#D4A373" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <!-- Handle -->
+                <path d="M90,75 Q108,75 108,88 Q108,101 90,101" stroke="#B7C9B5" stroke-width="5" fill="none"/>
+                <!-- Saucer -->
+                <ellipse cx="60" cy="136" rx="40" ry="8" fill="#C4D5C2" opacity="0.7"/>
+                <!-- Steam -->
+                <path d="M48,40 Q44,28 48,18" stroke="white" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
+                <path d="M60,38 Q56,26 60,16" stroke="white" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+                <path d="M72,40 Q68,28 72,18" stroke="white" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Matcha Latte</h3>
+            <span class="menu-item-jp">抹茶ラテ</span>
+            <p class="menu-item-desc">Ceremonial grade matcha, oat milk foam, kissed with a breath of vanilla.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 780</span>
+              <button class="btn-add" aria-label="Add Matcha Latte to order">+</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Sakura Tea -->
+        <article class="menu-card cafe-card reveal-up delay-2" aria-label="Sakura Tea">
+          <div class="menu-card-img">
+            <div class="drink-visual sakura-tea-visual" aria-hidden="true">
+              <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+                <path d="M30,50 Q30,130 35,135 L85,135 Q90,130 90,50 Z" fill="#FFE4E8" opacity="0.9"/>
+                <!-- Tea liquid -->
+                <path d="M30,68 Q30,130 35,135 L85,135 Q90,130 90,68 Z" fill="#FFB7C5" opacity="0.6"/>
+                <!-- Sakura petal in tea -->
+                <path d="M55,95 Q60,88 65,95 Q68,102 60,104 Q52,102 55,95 Z" fill="#FF8FAB" opacity="0.7"/>
+                <path d="M50,90 Q58,85 63,92" fill="#FFB7C5" opacity="0.5"/>
+                <!-- Foam -->
+                <ellipse cx="60" cy="52" rx="27" ry="6" fill="white" opacity="0.95"/>
+                <!-- Handle -->
+                <path d="M90,75 Q108,75 108,88 Q108,101 90,101" stroke="#FECDD3" stroke-width="5" fill="none"/>
+                <!-- Saucer -->
+                <ellipse cx="60" cy="136" rx="40" ry="8" fill="#FECDD3" opacity="0.5"/>
+                <!-- Steam -->
+                <path d="M50,40 Q46,28 50,18" stroke="#FFB7C5" stroke-width="1.5" fill="none" opacity="0.5" stroke-linecap="round"/>
+                <path d="M62,38 Q58,26 62,16" stroke="#FFB7C5" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Sakura Tea</h3>
+            <span class="menu-item-jp">桜茶</span>
+            <p class="menu-item-desc">Salted cherry blossom petals, white peach, and rose — a tea that tastes like spring.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 680</span>
+              <button class="btn-add" aria-label="Add Sakura Tea to order">+</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Yuzu Soda -->
+        <article class="menu-card cafe-card reveal-up delay-3" aria-label="Yuzu Soda">
+          <div class="menu-card-img">
+            <div class="drink-visual yuzu-visual" aria-hidden="true">
+              <svg viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+                <!-- Tall glass -->
+                <path d="M32,35 L35,135 L85,135 L88,35 Z" fill="#FFF9C4" opacity="0.5"/>
+                <path d="M32,35 L35,135 L85,135 L88,35 Z" stroke="#F4C430" stroke-width="1.5" fill="none" opacity="0.4"/>
+                <!-- Liquid -->
+                <path d="M33,60 L35,135 L85,135 L87,60 Z" fill="#F4C430" opacity="0.45"/>
+                <!-- Bubbles -->
+                <circle cx="50" cy="100" r="3" fill="white" opacity="0.5"/>
+                <circle cx="65" cy="115" r="2" fill="white" opacity="0.4"/>
+                <circle cx="58" cy="85"  r="2" fill="white" opacity="0.5"/>
+                <circle cx="72" cy="98"  r="3" fill="white" opacity="0.4"/>
+                <circle cx="45" cy="120" r="2" fill="white" opacity="0.5"/>
+                <!-- Ice cubes -->
+                <rect x="42" y="62" width="16" height="14" rx="2" fill="white" opacity="0.5"/>
+                <rect x="64" y="58" width="14" height="16" rx="2" fill="white" opacity="0.4"/>
+                <!-- Straw -->
+                <rect x="74" y="20" width="5" height="90" rx="2" fill="#FFB347" opacity="0.7"/>
+                <!-- Yuzu slice on rim -->
+                <circle cx="38" cy="37" r="12" fill="#F4C430" opacity="0.8"/>
+                <circle cx="38" cy="37" r="8"  fill="#FFF9C4" opacity="0.8"/>
+                <line x1="38" y1="29" x2="38" y2="45" stroke="#F4C430" stroke-width="1"/>
+                <line x1="30" y1="37" x2="46" y2="37" stroke="#F4C430" stroke-width="1"/>
+                <!-- Saucer -->
+                <ellipse cx="60" cy="136" rx="40" ry="8" fill="#F4C430" opacity="0.2"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Yuzu Soda</h3>
+            <span class="menu-item-jp">柚子ソーダ</span>
+            <p class="menu-item-desc">Sparkling yuzu citrus with honey syrup and hand-carved ice — bright, refreshing, alive.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 720</span>
+              <button class="btn-add" aria-label="Add Yuzu Soda to order">+</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mochi -->
+        <article class="menu-card cafe-card reveal-up delay-1" aria-label="Seasonal Mochi">
+          <div class="menu-card-img">
+            <div class="drink-visual mochi-visual" aria-hidden="true">
+              <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Plate -->
+                <ellipse cx="80" cy="100" rx="65" ry="14" fill="#E8DCC8" opacity="0.6"/>
+                <!-- Mochi 1 - pink -->
+                <ellipse cx="55" cy="72" rx="26" ry="22" fill="#FFB7C5" opacity="0.9"/>
+                <ellipse cx="53" cy="70" rx="22" ry="18" fill="#FECDD3" opacity="0.6"/>
+                <path d="M44,75 Q55,82 66,75" stroke="#FF8FAB" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Mochi 2 - green -->
+                <ellipse cx="105" cy="75" rx="26" ry="22" fill="#52B788" opacity="0.85"/>
+                <ellipse cx="103" cy="73" rx="22" ry="18" fill="#74C69D" opacity="0.6"/>
+                <path d="M94,78 Q105,85 116,78" stroke="#2D6A4F" stroke-width="1.5" fill="none" opacity="0.5"/>
+                <!-- Mochi 3 - back -->
+                <ellipse cx="80" cy="58" rx="22" ry="18" fill="#FFF9C4" opacity="0.9"/>
+                <ellipse cx="78" cy="56" rx="18" ry="15" fill="#FFFDE7" opacity="0.6"/>
+                <!-- Leaf decoration -->
+                <path d="M80,38 Q90,28 100,35 Q88,36 80,38 Z" fill="#52B788" opacity="0.7"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Seasonal Mochi</h3>
+            <span class="menu-item-jp">季節の餅</span>
+            <p class="menu-item-desc">Three varieties — sakura bean paste, matcha cream, and yuzu jelly — served on a hand-painted ceramic dish.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 880</span>
+              <button class="btn-add" aria-label="Add Seasonal Mochi to order">+</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Japanese Cheesecake -->
+        <article class="menu-card cafe-card reveal-up delay-2" aria-label="Japanese Cheesecake">
+          <div class="menu-card-img">
+            <div class="drink-visual cake-visual" aria-hidden="true">
+              <svg viewBox="0 0 160 140" xmlns="http://www.w3.org/2000/svg">
+                <!-- Plate -->
+                <ellipse cx="80" cy="118" rx="65" ry="14" fill="#E8DCC8" opacity="0.5"/>
+                <!-- Cake slice -->
+                <path d="M40,115 L80,50 L120,115 Z" fill="#FFF8E7" opacity="0.95"/>
+                <path d="M40,115 L120,115" stroke="#E8DCC8" stroke-width="1" fill="none"/>
+                <!-- Layers -->
+                <path d="M43,108 L117,108" stroke="#F4C430" stroke-width="3" opacity="0.4"/>
+                <path d="M46,101 L114,101" stroke="#F4C430" stroke-width="2" opacity="0.3"/>
+                <!-- Powdered sugar top -->
+                <path d="M80,52 L120,115 L40,115 Z" fill="white" opacity="0.2"/>
+                <!-- Strawberry -->
+                <path d="M70,52 Q76,40 82,52 Q80,58 76,60 Q72,58 70,52 Z" fill="#E85D04" opacity="0.8"/>
+                <path d="M73,40 Q76,36 79,40" stroke="#52B788" stroke-width="2" fill="none"/>
+                <!-- Gold leaf accents -->
+                <path d="M85,65 Q90,60 95,65" stroke="#C9A84C" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <path d="M88,72 Q93,67 97,72" stroke="#C9A84C" stroke-width="1"   fill="none" opacity="0.5"/>
+                <!-- Dusting dots -->
+                <circle cx="58" cy="90" r="1.5" fill="white" opacity="0.7"/>
+                <circle cx="100" cy="85" r="1.5" fill="white" opacity="0.6"/>
+                <circle cx="75" cy="100" r="1"   fill="white" opacity="0.7"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Japanese Cheesecake</h3>
+            <span class="menu-item-jp">スフレチーズケーキ</span>
+            <p class="menu-item-desc">Cloud-light soufflé cheesecake with gold leaf, seasonal berry coulis, and a whisper of miso caramel.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 980</span>
+              <button class="btn-add" aria-label="Add Japanese Cheesecake to order">+</button>
+            </div>
+          </div>
+        </article>
+      </div><!-- /cafe-drinks -->
+
+      <!-- Sweets Panel (hidden by default) -->
+      <div class="cafe-grid menu-panel" id="cafe-sweets" role="tabpanel" aria-hidden="true">
+        <article class="menu-card cafe-card reveal-up delay-1" aria-label="Warabi Mochi">
+          <div class="menu-card-img">
+            <div class="drink-visual" aria-hidden="true" style="background:radial-gradient(ellipse at center,rgba(200,170,220,0.15) 0%,transparent 70%);display:flex;align-items:center;justify-content:center;">
+              <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="80">
+                <ellipse cx="60" cy="90" rx="48" ry="10" fill="#E8DCC8" opacity="0.5"/>
+                <ellipse cx="40" cy="72" rx="18" ry="14" fill="#F2E6FF" opacity="0.9"/>
+                <ellipse cx="60" cy="68" rx="18" ry="14" fill="#E8D5FF" opacity="0.9"/>
+                <ellipse cx="80" cy="72" rx="18" ry="14" fill="#F5EAFF" opacity="0.9"/>
+                <ellipse cx="40" cy="72" rx="8" ry="5" fill="#C9A84C" opacity="0.4"/>
+                <ellipse cx="60" cy="68" rx="8" ry="5" fill="#C9A84C" opacity="0.4"/>
+                <ellipse cx="80" cy="72" rx="8" ry="5" fill="#C9A84C" opacity="0.4"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Warabi Mochi</h3>
+            <span class="menu-item-jp">わらび餅</span>
+            <p class="menu-item-desc">Silky bracken starch mochi dusted with kinako and drizzled with kuromitsu.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 680</span>
+              <button class="btn-add" aria-label="Add Warabi Mochi to order">+</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card cafe-card reveal-up delay-2" aria-label="Matcha Parfait">
+          <div class="menu-card-img">
+            <div class="drink-visual" aria-hidden="true" style="background:radial-gradient(ellipse at center,rgba(82,183,136,0.12) 0%,transparent 70%);display:flex;align-items:center;justify-content:center;">
+              <svg viewBox="0 0 80 140" xmlns="http://www.w3.org/2000/svg" width="60">
+                <path d="M20,30 L15,120 Q15,128 40,128 Q65,128 65,120 L60,30 Z" fill="#CFEDE7" opacity="0.9"/>
+                <rect x="20" y="30" width="40" height="12" fill="#52B788" opacity="0.8"/>
+                <rect x="18" y="55" width="44" height="10" fill="white" opacity="0.9"/>
+                <rect x="20" y="78" width="40" height="10" fill="#8D6E63" opacity="0.5"/>
+                <ellipse cx="40" cy="30" rx="20" ry="6" fill="white" opacity="0.95"/>
+                <polygon points="40,8 34,24 46,24" fill="#52B788" opacity="0.8"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Matcha Parfait</h3>
+            <span class="menu-item-jp">抹茶パフェ</span>
+            <p class="menu-item-desc">Layers of ceremonial matcha gelato, azuki bean, corn flakes, and whipped cream.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 880</span>
+              <button class="btn-add" aria-label="Add Matcha Parfait to order">+</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="menu-card cafe-card reveal-up delay-3" aria-label="Dorayaki">
+          <div class="menu-card-img">
+            <div class="drink-visual" aria-hidden="true" style="background:radial-gradient(ellipse at center,rgba(201,168,76,0.12) 0%,transparent 70%);display:flex;align-items:center;justify-content:center;">
+              <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" width="80">
+                <ellipse cx="60" cy="48" rx="44" ry="24" fill="#D4A56A" opacity="0.95"/>
+                <ellipse cx="60" cy="32" rx="44" ry="24" fill="#C8904A" opacity="0.95"/>
+                <ellipse cx="60" cy="36" rx="30" ry="16" fill="#8B3A2A" opacity="0.7"/>
+                <ellipse cx="60" cy="32" rx="15" ry="8" fill="#5C1E10" opacity="0.5"/>
+              </svg>
+            </div>
+          </div>
+          <div class="menu-card-body">
+            <h3 class="menu-item-name">Dorayaki</h3>
+            <span class="menu-item-jp">どら焼き</span>
+            <p class="menu-item-desc">Fluffy honey pancakes filled with artisan red bean paste, a timeless Japanese classic.</p>
+            <div class="menu-card-footer">
+              <span class="menu-price">¥ 580</span>
+              <button class="btn-add" aria-label="Add Dorayaki to order">+</button>
+            </div>
+          </div>
+        </article>
+      </div><!-- /cafe-sweets -->
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5: DINING MENU — ダイニング
+  ══════════════════════════════════════════════ -->
+  <section id="dining" class="dining-section" aria-labelledby="dining-heading">
+    <div class="section-inner">
+      <div class="section-header reveal-up">
+        <span class="section-label">Dining Menu · ダイニングメニュー</span>
+        <h2 id="dining-heading" class="section-heading">Culinary Depths</h2>
+        <p class="section-sub">Premium dishes crafted with precision, reverence, and the ocean's finest.</p>
+      </div>
+
+      <div class="dining-list">
+
+        <!-- Ramen -->
+        <article class="dining-item reveal-up delay-1" aria-label="Black Tonkotsu Ramen">
+          <div class="dining-number" aria-hidden="true">01</div>
+          <div class="dining-content">
+            <div class="dining-info">
+              <div class="dining-names">
+                <h3 class="dining-name-en">Black Tonkotsu Ramen</h3>
+                <span class="dining-name-jp">黒豚骨ラーメン</span>
+              </div>
+              <p class="dining-desc">18-hour pork bone broth darkened with squid ink, hand-pulled noodles, chashu belly, a silken onsen egg, and nori from Ariake Bay.</p>
+              <div class="dining-tags">
+                <span class="tag">Chef's Favourite</span>
+                <span class="tag">Rich</span>
+              </div>
+            </div>
+            <div class="dining-price-block">
+              <span class="dining-price">¥ 2,200</span>
+            </div>
+          </div>
+          <div class="dining-divider" aria-hidden="true"></div>
+        </article>
+
+        <!-- Sushi Platter -->
+        <article class="dining-item reveal-up delay-2" aria-label="Omakase Sushi Platter">
+          <div class="dining-number" aria-hidden="true">02</div>
+          <div class="dining-content">
+            <div class="dining-info">
+              <div class="dining-names">
+                <h3 class="dining-name-en">Omakase Sushi Platter</h3>
+                <span class="dining-name-jp">おまかせ寿司盛り合わせ</span>
+              </div>
+              <p class="dining-desc">12-piece chef's selection of the finest seasonal catch. Nigiri aged in-house, served on Edomae rice seasoned with red vinegar.</p>
+              <div class="dining-tags">
+                <span class="tag">Seasonal</span>
+                <span class="tag">Signature</span>
+              </div>
+            </div>
+            <div class="dining-price-block">
+              <span class="dining-price">¥ 5,800</span>
+            </div>
+          </div>
+          <div class="dining-divider" aria-hidden="true"></div>
+        </article>
+
+        <!-- Teriyaki Chicken -->
+        <article class="dining-item reveal-up delay-3" aria-label="Charcoal Teriyaki Chicken">
+          <div class="dining-number" aria-hidden="true">03</div>
+          <div class="dining-content">
+            <div class="dining-info">
+              <div class="dining-names">
+                <h3 class="dining-name-en">Charcoal Teriyaki Chicken</h3>
+                <span class="dining-name-jp">炭火照り焼きチキン</span>
+              </div>
+              <p class="dining-desc">Free-range chicken thigh glazed with aged sake, mirin, and house teriyaki. Served over warm dashi rice with pickled daikon.</p>
+              <div class="dining-tags">
+                <span class="tag">Grilled</span>
+              </div>
+            </div>
+            <div class="dining-price-block">
+              <span class="dining-price">¥ 2,800</span>
+            </div>
+          </div>
+          <div class="dining-divider" aria-hidden="true"></div>
+        </article>
+
+        <!-- Shrimp Tempura -->
+        <article class="dining-item reveal-up delay-4" aria-label="Tiger Prawn Tempura">
+          <div class="dining-number" aria-hidden="true">04</div>
+          <div class="dining-content">
+            <div class="dining-info">
+              <div class="dining-names">
+                <h3 class="dining-name-en">Tiger Prawn Tempura</h3>
+                <span class="dining-name-jp">車海老天麩羅</span>
+              </div>
+              <p class="dining-desc">Tiger prawns in a whisper-light batter, fried to golden perfection. Accompanied by dashi tentsuyu and Himalayan black salt.</p>
+              <div class="dining-tags">
+                <span class="tag">Crispy</span>
+                <span class="tag">Light</span>
+              </div>
+            </div>
+            <div class="dining-price-block">
+              <span class="dining-price">¥ 3,200</span>
+            </div>
+          </div>
+          <div class="dining-divider" aria-hidden="true"></div>
+        </article>
+
+        <!-- Wagyu Bowl -->
+        <article class="dining-item reveal-up delay-1" aria-label="A5 Wagyu Donburi">
+          <div class="dining-number" aria-hidden="true">05</div>
+          <div class="dining-content">
+            <div class="dining-info">
+              <div class="dining-names">
+                <h3 class="dining-name-en">A5 Wagyu Donburi</h3>
+                <span class="dining-name-jp">A5和牛丼</span>
+              </div>
+              <p class="dining-desc">Charcoal-grilled A5 Miyazaki wagyu over Hokkaido Koshihikari rice, truffle soy reduction, microgreens, and 24-karat gold leaf.</p>
+              <div class="dining-tags">
+                <span class="tag">Premium</span>
+                <span class="tag">Signature</span>
+              </div>
+            </div>
+            <div class="dining-price-block">
+              <span class="dining-price">¥ 8,500</span>
+            </div>
+          </div>
+          <div class="dining-divider" aria-hidden="true"></div>
+        </article>
+
+      </div><!-- /dining-list -->
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 6: EXPERIENCE — 体験
+  ══════════════════════════════════════════════ -->
+  <section id="experience" class="experience-section" aria-labelledby="exp-heading">
+    <div class="exp-bg" aria-hidden="true">
+      <!-- Jellyfish glow orbs -->
+      <div class="jelly-orb orb-1" aria-hidden="true"></div>
+      <div class="jelly-orb orb-2" aria-hidden="true"></div>
+      <div class="jelly-orb orb-3" aria-hidden="true"></div>
+    </div>
+    <div class="section-inner exp-inner">
+      <div class="exp-content reveal-up">
+        <span class="section-label">The Experience · 体験</span>
+        <h2 id="exp-heading" class="section-heading exp-heading">Dine Beneath<br /><em>the Ocean</em></h2>
+        <p class="body-text exp-body">
+          At Sora &amp; Umi, your table is surrounded not by walls, but by water. Bioluminescent creatures drift past floor-to-ceiling glass as you savour each course. The aquarium is not a backdrop — it is a living participant in your meal.
+        </p>
+        <p class="body-text exp-body">
+          Every evening, our chefs narrate a journey from the sky to the abyss through seven courses — each dish mirroring a depth zone of the ocean, from the sunlit shallows to the midnight trenches where light itself becomes a rarity.
+        </p>
+        <div class="exp-features">
+          <div class="exp-feature">
+            <span class="feature-icon" aria-hidden="true">◈</span>
+            <span>360° Aquarium Dining Room</span>
+          </div>
+          <div class="exp-feature">
+            <span class="feature-icon" aria-hidden="true">◈</span>
+            <span>7-Course Omakase Journey</span>
+          </div>
+          <div class="exp-feature">
+            <span class="feature-icon" aria-hidden="true">◈</span>
+            <span>Live Koi Pond Viewing Floor</span>
+          </div>
+          <div class="exp-feature">
+            <span class="feature-icon" aria-hidden="true">◈</span>
+            <span>Sakura Lantern Garden</span>
+          </div>
+        </div>
+        <a href="#reservation" class="btn-primary btn-large">Book the Immersive Experience</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 7: GALLERY — ギャラリー
+  ══════════════════════════════════════════════ -->
+  <section id="gallery" class="gallery-section" aria-labelledby="gallery-heading">
+    <div class="section-inner">
+      <div class="section-header reveal-up">
+        <span class="section-label">Gallery · ギャラリー</span>
+        <h2 id="gallery-heading" class="section-heading">Through the Glass</h2>
+      </div>
+
+      <div class="gallery-grid reveal-up delay-1">
+        <div class="gallery-item g-tall" aria-label="Underwater dining room view">
+          <img src="img/Gemini_Generated_Image_1kkgsz1kkgsz1kkg.png" alt="Aquarium Dining Hall" loading="lazy" />
+        </div>
+        <div class="gallery-item" aria-label="Koi pond viewing floor">
+          <img src="img/Gemini_Generated_Image_wvlp39wvlp39wvlp.png" alt="Koi Viewing Floor" loading="lazy" />
+        </div>
+        <div class="gallery-item" aria-label="Signature wagyu donburi">
+          <img src="img/Gemini_Generated_Image_z6yrj9z6yrj9z6yr.png" alt="A5 Wagyu Donburi" loading="lazy" />
+        </div>
+        <div class="gallery-item g-wide" aria-label="Sakura lantern garden at dusk">
+          <img src="img/Gemini_Generated_Image_7qsth07qsth07qst.png" alt="Sakura Lantern Garden" loading="lazy" />
+        </div>
+        <div class="gallery-item" aria-label="Jellyfish exhibit close-up">
+          <img src="img/Gemini_Generated_Image_vfjje9vfjje9vfjj.png" alt="Jellyfish Exhibit" loading="lazy" />
+        </div>
+        <div class="gallery-item" aria-label="Omakase sushi platter">
+          <img src="img/Gemini_Generated_Image_m4l16vm4l16vm4l1.png" alt="Omakase Platter" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 8: RESERVATION — 予約
+  ══════════════════════════════════════════════ -->
+  <section id="reservation" class="reservation-section" aria-labelledby="res-heading">
+    <div class="res-bg" aria-hidden="true"></div>
+    <div class="section-inner">
+      <div class="res-layout">
+
+        <!-- Info side -->
+        <div class="res-info reveal-up">
+          <span class="section-label">Reserve · 予約</span>
+          <h2 id="res-heading" class="section-heading res-heading">Reserve Your<br /><em>Table</em></h2>
+
+          <div class="hours-block">
+            <h3 class="hours-title">Opening Hours</h3>
+            <table class="hours-table" aria-label="Opening hours">
+              <tbody>
+                <tr>
+                  <td>Café</td>
+                  <td>Monday – Friday</td>
+                  <td>10:00 – 18:00</td>
+                </tr>
+                <tr>
+                  <td>Café</td>
+                  <td>Saturday – Sunday</td>
+                  <td>09:00 – 19:00</td>
+                </tr>
+                <tr>
+                  <td>Dining</td>
+                  <td>Tuesday – Sunday</td>
+                  <td>17:00 – 23:00</td>
+                </tr>
+                <tr>
+                  <td>Omakase</td>
+                  <td>Friday – Saturday</td>
+                  <td>19:00 & 21:30</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="res-note">Closed every Monday for Dining &amp; Omakase. Reservations recommended for all evening seatings.</p>
+          </div>
+        </div>
+
+        <!-- Form side -->
+        <form class="res-form reveal-up delay-2" aria-label="Table reservation form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-name">Full Name</label>
+              <input type="text" id="res-name" name="name" placeholder="Your name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="res-email">Email Address</label>
+              <input type="email" id="res-email" name="email" placeholder="your@email.com" required autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-date">Preferred Date</label>
+              <input type="date" id="res-date" name="date" required />
+            </div>
+            <div class="form-group">
+              <label for="res-time">Preferred Time</label>
+              <select id="res-time" name="time" required>
+                <option value="" disabled selected>Select time</option>
+                <option value="17:00">17:00</option>
+                <option value="18:30">18:30</option>
+                <option value="19:00">19:00</option>
+                <option value="20:30">20:30</option>
+                <option value="21:30">21:30 (Omakase)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-guests">Number of Guests</label>
+              <select id="res-guests" name="guests" required>
+                <option value="" disabled selected>Select guests</option>
+                <option value="1">1 Guest</option>
+                <option value="2">2 Guests</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+                <option value="5-6">5–6 Guests</option>
+                <option value="7+">7+ Guests (private)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="res-type">Experience</label>
+              <select id="res-type" name="type" required>
+                <option value="" disabled selected>Select experience</option>
+                <option value="cafe">Café Visit</option>
+                <option value="dining">Aquarium Dining</option>
+                <option value="omakase">Omakase Journey</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label for="res-note">Special Requests</label>
+            <textarea id="res-note" name="note" rows="3" placeholder="Dietary requirements, special occasions, accessibility needs…"></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full btn-large">
+            Confirm Reservation
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 9: CONTACT — お問い合わせ
+  ══════════════════════════════════════════════ -->
+  <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+    <div class="section-inner">
+      <div class="section-header reveal-up">
+        <span class="section-label">Contact Us · お問い合わせ</span>
+        <h2 id="contact-heading" class="section-heading">Reach the Shore</h2>
+      </div>
+      <div class="contact-layout">
+        <div class="contact-details reveal-up delay-1">
+          <div class="contact-item">
+            <span class="contact-label">Location</span>
+            <span class="contact-value">1-2-3 Uminonaka, Shinjuku<br />Tokyo, Japan 160-0022</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Phone</span>
+            <span class="contact-value"><a href="tel:+81312345678">+81 3-1234-5678</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Email</span>
+            <span class="contact-value"><a href="mailto:hello@soraumi.jp">hello@soraumi.jp</a></span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-label">Nearest Station</span>
+            <span class="contact-value">Shinjuku Station (West Exit)<br />3-minute walk</span>
+          </div>
+        </div>
+
+        <form class="contact-form reveal-up delay-2" aria-label="Contact form" novalidate>
+          <div class="form-group">
+            <label for="c-name">Your Name</label>
+            <input type="text" id="c-name" name="name" placeholder="Full name" autocomplete="name" required />
+          </div>
+          <div class="form-group">
+            <label for="c-email">Email Address</label>
+            <input type="email" id="c-email" name="email" placeholder="your@email.com" autocomplete="email" required />
+          </div>
+          <div class="form-group">
+            <label for="c-msg">Message</label>
+            <textarea id="c-msg" name="message" rows="5" placeholder="How can we help you?" required></textarea>
+          </div>
+          <button type="submit" class="btn-ghost btn-full">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER — 海底 (OCEAN FLOOR)
+  ══════════════════════════════════════════════ -->
+  <footer id="footer" class="footer" aria-label="Site footer">
+    <!-- Seaweed animations -->
+    <div class="seaweed-layer" aria-hidden="true">
+      <svg class="seaweed sw-1" viewBox="0 0 40 120" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,120 Q10,90 22,60 Q30,40 18,10" stroke="#1B4332" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.6"/>
+        <path d="M20,120 Q14,95 25,70 Q32,50 22,20" stroke="#2D6A4F" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+      <svg class="seaweed sw-2" viewBox="0 0 40 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,100 Q28,75 16,50 Q8,30 22,5" stroke="#1B4332" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+      <svg class="seaweed sw-3" viewBox="0 0 40 130" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,130 Q12,100 24,70 Q32,45 18,15" stroke="#40916C" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.45"/>
+        <path d="M20,130 Q26,102 16,75 Q10,52 22,22" stroke="#2D6A4F" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.35"/>
+      </svg>
+    </div>
+
+    <div class="footer-inner">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="footer-logo-jp" aria-label="Sora to Umi">空と海</div>
+        <div class="footer-logo-en">Sora &amp; Umi Café &amp; Dining</div>
+        <p class="footer-tagline">Where the sky dissolves into the sea.</p>
+      </div>
+
+      <!-- Links -->
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <div class="footer-nav-col">
+          <h4>Visit</h4>
+          <a href="#aquarium">Aquarium</a>
+          <a href="#cafe">Café</a>
+          <a href="#dining">Dining</a>
+          <a href="#experience">Experience</a>
+        </div>
+        <div class="footer-nav-col">
+          <h4>Discover</h4>
+          <a href="#gallery">Gallery</a>
+          <a href="#story">Our Story</a>
+          <a href="#contact">Contact</a>
+          <a href="#reservation">Reserve</a>
+        </div>
+        <div class="footer-nav-col">
+          <h4>Legal</h4>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Accessibility</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </nav>
+
+      <!-- Social -->
+      <div class="footer-social">
+        <h4>Follow Us</h4>
+        <div class="social-links" role="list">
+          <a href="#" class="social-link" aria-label="Instagram" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4.5"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="X / Twitter" role="listitem">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook" role="listitem">
+            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 空と海 · Sora &amp; Umi Café &amp; Dining. All rights reserved.</p>
+      <p class="footer-craft">Crafted with reverence for the ocean.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
