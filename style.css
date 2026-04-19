@@ -109,6 +109,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── SCROLL PROGRESS BAR ──────────────────────────────────── */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(
+    90deg,
+    var(--gold)         0%,
+    var(--teal-primary) 55%,
+    var(--sakura-pink)  100%
+  );
+  z-index: 9999;
+  transition: width 0.08s linear;
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+}
+
 /* ─── SCROLLBAR ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--abyss-deep); }
@@ -147,7 +165,9 @@ body {
 
 /* ─── TYPOGRAPHY SCALE ──────────────────────────────────────── */
 .section-label {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 500;
@@ -155,6 +175,17 @@ body {
   text-transform: uppercase;
   color: var(--teal-primary);
   margin-bottom: var(--sp-4);
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sakura-pink);
+  opacity: 0.85;
+  flex-shrink: 0;
 }
 
 .section-heading {
@@ -207,6 +238,26 @@ body {
 .section-header {
   text-align: center;
   margin-bottom: var(--sp-16);
+  position: relative;
+}
+
+/* Radial glow behind section headings */
+.section-header::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 220px;
+  background: radial-gradient(ellipse at center, rgba(44, 166, 164, 0.1) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-header > * {
+  position: relative;
+  z-index: 1;
 }
 
 .section-header .section-sub {
@@ -439,8 +490,12 @@ body {
 }
 
 .nav-links a:hover {
-  color: var(--text-primary);
-  background: rgba(255,255,255,0.04);
+  color: var(--sakura-pink);
+  background: rgba(255, 183, 197, 0.05);
+}
+
+.nav-links a.active {
+  color: var(--sakura-pink);
 }
 
 .nav-links .nav-cta {
@@ -496,10 +551,13 @@ body {
   overflow: hidden;
   background: linear-gradient(
     180deg,
-    var(--sky-light) 0%,
-    var(--sky-mid) 30%,
-    var(--sky-horizon) 55%,
-    var(--ocean-surface) 75%,
+    #fce8ee 0%,
+    var(--sakura-pink) 10%,
+    #d4b8d0 22%,
+    var(--sky-light)   38%,
+    var(--sky-mid)     55%,
+    var(--sky-horizon) 70%,
+    var(--ocean-surface) 85%,
     var(--abyss-light) 100%
   );
 }
@@ -1637,7 +1695,7 @@ body {
   line-height: 1;
 }
 
-.footer-nav-col a:hover { color: var(--teal-light); }
+.footer-nav-col a:hover { color: var(--sakura-pink); }
 
 /* Footer social */
 .footer-social {
@@ -1680,8 +1738,8 @@ body {
 }
 
 .social-link:hover {
-  color: var(--teal-light);
-  border-color: var(--teal-primary);
+  color: var(--sakura-pink);
+  border-color: var(--sakura-pink);
   background: rgba(44, 166, 164, 0.08);
 }
 

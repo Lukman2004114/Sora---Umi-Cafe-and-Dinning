@@ -1,0 +1,262 @@
+==============================================================
+SITE: Sora & Umi Café & Dining
+==============================
+
+## ROLE / CONTEXT
+
+Role: You are a Creative Director designing a premium immersive web experience.
+
+Context:
+Sora & Umi Café & Dining is a Japanese-themed underwater fish museum combined with a café and restaurant. The experience is designed as a visual journey from sky (Sora) to sea (Umi), blending cultural storytelling with modern web design.
+
+The goal is to create a website that feels calm, elegant, immersive, and interactive — similar to a real-world premium brand.
+
+---
+
+## BUILD STACK
+
+1. Stitch (layout generation)
+2. UI/UX Tool (style, spacing, typography)
+3. Firecrawl (reference research)
+4. Nanobanana (visual assets and mood)
+5. Claude (final development: HTML, CSS, JavaScript)
+
+---
+
+## PURPOSE
+
+A digital experience representing a Japanese-inspired café and restaurant set inside an underwater museum. The site allows users to explore marine exhibits, view menus, and experience a relaxing immersive environment.
+
+==============================================================
+STEP 2 — BRAND VOICE
+====================
+
+Voice archetype:
+Calm Storyteller — minimal, elegant, peaceful, slightly poetic
+
+Tone:
+
+* Formal ↔ Casual:        3 (balanced)
+* Serious ↔ Playful:      2 (calm, not childish)
+* Reserved ↔ Expressive:  3 (soft expression)
+* Modern ↔ Timeless:      4 (timeless aesthetic)
+
+Voice rules:
+
+* Use short, clear sentences
+* Focus on calm and immersive language
+* Avoid slang or overly playful tone
+* Speak directly to the user
+
+Key phrases:
+
+* “Where Sky Meets Sea”
+* “A journey beneath the waves”
+* “Experience calm, depth, and flavor”
+* “From clouds to ocean depths”
+
+==============================================================
+STEP 3 — DESIGN SYSTEM
+======================
+
+Style keywords:
+minimal, Japanese, calm, immersive, modern, clean, elegant
+
+COLOR SYSTEM:
+
+* Primary:        Sky blue
+* Secondary:      Deep ocean blue
+* Accent:         Sakura pink
+* Neutral:        Soft beige / off-white
+* Text:           Dark blue / soft black
+
+TYPOGRAPHY:
+
+* Heading: modern Japanese-inspired serif
+* Body: clean sans-serif (high readability)
+* Scale: consistent hierarchy (H1 → H6)
+* Line height: 1.5–1.6
+
+SPACING:
+
+* Consistent vertical rhythm
+* Clean section separation
+* Responsive spacing
+
+LAYOUT:
+
+* Grid-based (Flexbox / CSS Grid)
+* Mobile-first design
+* Balanced whitespace
+
+MOTION:
+
+* Smooth scrolling
+* Fade + slide animations
+* Subtle floating effects (fish, particles)
+* Soft transitions (no aggressive motion)
+
+==============================================================
+STEP 4 — REFERENCE RESEARCH (Firecrawl)
+=======================================
+
+Sources:
+
+* Aquarium websites (immersive layouts)
+* Japanese restaurant websites (minimal UI)
+* Café websites (card layouts)
+* Luxury websites (animations, transitions)
+
+Extract:
+
+* Layout structure
+* Menu design patterns
+* Color usage
+* Animation ideas
+* UI components
+
+Goal:
+Combine all inspiration into one unique concept.
+
+==============================================================
+STEP 5 — SECTIONS & LAYOUT (Stitch)
+===================================
+
+1. Hero Section
+
+* Sky → ocean gradient
+* Clouds + fish visuals
+* Heading: "Where Sky Meets Sea"
+* CTA buttons
+
+2. About Section
+
+* Story of Sora & Umi
+* Concept explanation
+
+3. Aquarium Exhibit
+
+* Cards: koi, jellyfish, turtle, tuna
+
+4. Café Menu
+
+* Drinks & desserts (matcha, sakura tea, mochi)
+
+5. Dining Menu
+
+* Full meals (ramen, sushi, wagyu)
+
+6. Experience Section
+
+* Immersive storytelling
+
+7. Gallery
+
+* Visual grid
+
+8. Reservation
+
+* Opening hours + booking CTA
+
+9. Contact
+
+* Form (name, email, message)
+
+10. Footer
+
+* Branding + links
+
+==============================================================
+STEP 6 — VISUALS (Nanobanana)
+=============================
+
+Art direction:
+
+* Underwater glowing scenes
+* Soft lighting
+* Calm atmosphere
+
+Elements:
+
+* Jellyfish glow
+* Koi fish
+* Sakura petals
+* Japanese wave patterns
+* Minimal samurai silhouette
+
+Mood:
+
+* Peaceful
+* Elegant
+* Dreamlike
+
+==============================================================
+STEP 7 — BRAND ASSETS
+=====================
+
+LOGO:
+
+* Concept: wave + sky + minimal Japanese symbol
+* Style: clean, modern, elegant
+* Variants: full, icon, monochrome
+
+ICONS:
+
+* Fish
+* Wave
+* Tea cup
+* Lantern
+* Menu icons
+
+==============================================================
+STEP 8 — INTERACTIVE COMPONENTS
+===============================
+
+* Cards (menu, fish, gallery)
+* Modal (details)
+* Form (contact)
+* Navigation menu
+* Hover effects
+* Smooth transitions
+
+States:
+
+* hover
+* active
+* focus
+* disabled
+
+==============================================================
+STEP 9 — FINAL BUILD
+====================
+
+TECH:
+
+* HTML, CSS, JavaScript
+* Separate files
+* Responsive design
+
+PERFORMANCE:
+
+* Fast loading
+* Optimized images
+* Lazy loading
+
+ACCESSIBILITY:
+
+* Alt text for images
+* Clear navigation
+* Mobile-friendly buttons
+
+ANIMATION:
+
+* Scroll reveal
+* Floating fish
+* Sakura falling petals
+* Smooth transitions
+
+==============================================================
+
+## FINAL GOAL
+
+Create a premium, immersive website that feels like a real Japanese underwater café and dining experience, combining modern UI with cultural storytelling.
