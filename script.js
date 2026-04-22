@@ -387,6 +387,112 @@ window.addEventListener('scroll', updateHeroParallax, { passive: true });
 
 
 /* ─────────────────────────────────────────────
+   8b. STEAM WISPS (café ambient — rising steam)
+   Simulates steam from matcha / hot tea cups
+───────────────────────────────────────────── */
+(function initSteam() {
+  const layer = document.getElementById('steam-layer');
+  if (!layer) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const count = window.innerWidth < 768 ? 7 : 14;
+
+  for (let i = 0; i < count; i++) {
+    const wisp = document.createElement('div');
+    wisp.className = 'steam-wisp';
+
+    const width    = 28 + Math.random() * 36;          // 28–64px
+    const height   = width * (1.6 + Math.random() * 0.8); // taller blob
+    const left     = 4 + Math.random() * 92;           // % across viewport
+    const duration = 10 + Math.random() * 14;          // 10–24s rise
+    const delay    = -(Math.random() * 24);             // staggered starts
+    const drift    = (Math.random() - 0.5) * 80;       // px side drift
+
+    wisp.style.cssText = `
+      width: ${width}px;
+      height: ${height}px;
+      left: ${left}%;
+      bottom: -100px;
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      --drift: ${drift}px;
+    `;
+    layer.appendChild(wisp);
+  }
+})();
+
+
+/* ─────────────────────────────────────────────
+   8c. FLOATING TEA LEAVES (café ambient)
+   Small tea / matcha leaves drifting downward
+───────────────────────────────────────────── */
+(function initTeaLeaves() {
+  const layer = document.getElementById('tea-leaf-layer');
+  if (!layer) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Tea leaf SVG variants
+  const leafSVGs = [
+    // Narrow elongated tea leaf
+    `<svg viewBox="0 0 32 14" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1,7 Q6,1 16,1 Q26,1 31,7 Q26,13 16,13 Q6,13 1,7Z" fill="currentColor"/>
+      <line x1="2" y1="7" x2="30" y2="7" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+      <line x1="16" y1="1" x2="10" y2="13" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+      <line x1="16" y1="1" x2="22" y2="13" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+    </svg>`,
+    // Rounder matcha leaf
+    `<svg viewBox="0 0 24 18" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="12" cy="9" rx="11" ry="8" fill="currentColor"/>
+      <line x1="2" y1="9" x2="22" y2="9" stroke="rgba(255,255,255,0.2)" stroke-width="0.7"/>
+      <line x1="12" y1="1" x2="12" y2="17" stroke="rgba(255,255,255,0.15)" stroke-width="0.6"/>
+    </svg>`,
+    // Small pointed leaf
+    `<svg viewBox="0 0 20 10" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,5 Q5,0 10,0 Q18,0 20,5 Q18,10 10,10 Q5,10 0,5Z" fill="currentColor"/>
+      <line x1="1" y1="5" x2="19" y2="5" stroke="rgba(255,255,255,0.2)" stroke-width="0.6"/>
+    </svg>`,
+  ];
+
+  // Matcha greens + dark tea tones
+  const leafColors = [
+    'rgba(106, 153, 78, 0.40)',   // matcha green
+    'rgba(140, 195, 100, 0.32)',  // light green tea
+    'rgba(82,  120, 50, 0.38)',   // deep matcha
+    'rgba(101, 72,  38, 0.28)',   // dried tea leaf brown
+    'rgba(130, 170, 80, 0.30)',   // fresh green
+  ];
+
+  const count = window.innerWidth < 768 ? 8 : 16;
+
+  for (let i = 0; i < count; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'tea-leaf';
+
+    const size     = 14 + Math.random() * 22;         // 14–36px wide
+    const left     = 2  + Math.random() * 96;         // % horizontal
+    const duration = 18 + Math.random() * 20;         // 18–38s fall
+    const delay    = -(Math.random() * 38);            // stagger
+    const drift    = (Math.random() - 0.5) * 120;     // px horizontal drift
+    const color    = leafColors[Math.floor(Math.random() * leafColors.length)];
+    const svgIdx   = Math.floor(Math.random() * leafSVGs.length);
+
+    leaf.style.cssText = `
+      width: ${size}px;
+      height: auto;
+      left: ${left}%;
+      top: 0;
+      color: ${color};
+      animation-duration: ${duration}s;
+      animation-delay: ${delay}s;
+      --drift: ${drift}px;
+    `;
+    leaf.innerHTML = leafSVGs[svgIdx];
+    layer.appendChild(leaf);
+  }
+})();
+
+
+/* ─────────────────────────────────────────────
    9. BIOLUMINESCENT PARTICLES
    Glowing dots in the aquarium section
 ───────────────────────────────────────────── */
@@ -727,6 +833,95 @@ document.querySelectorAll('.gallery-item').forEach((item, i) => {
   );
 
   sections.forEach(s => sectionObserver.observe(s));
+})();
+
+
+/* ─────────────────────────────────────────────
+   SAKURA FOREST — hero background silhouettes
+   3-layer depth: back → mid → front
+───────────────────────────────────────────── */
+(function initSakuraForest() {
+  const container = document.querySelector('.sakura-forest');
+  if (!container) return;
+
+  const W     = 1440;
+  const H     = 800;
+  const TRUNK = '#3D1A2E'; // dark muted rose-brown trunk & branches
+
+  // Canopy colour sets per depth layer [base, light, highlight]
+  const C = {
+    back:  ['rgba(255,200,215,0.35)', 'rgba(255,225,238,0.25)', 'rgba(255,240,248,0.18)'],
+    mid:   ['rgba(255,175,200,0.58)', 'rgba(255,205,222,0.42)', 'rgba(255,220,232,0.30)'],
+    front: ['rgba(255,148,178,0.80)', 'rgba(255,182,205,0.62)', 'rgba(255,210,225,0.45)'],
+  };
+
+  // [cx, baseY, trunkH, canopyR, opacity, colourSet]
+  const trees = [
+    // ── Back layer — small, delicate
+    [55,   780,  65, 36, 0.22, C.back],
+    [220,  780,  72, 42, 0.20, C.back],
+    [400,  780,  60, 34, 0.22, C.back],
+    [580,  780,  70, 40, 0.20, C.back],
+    [760,  780,  64, 37, 0.22, C.back],
+    [940,  780,  73, 41, 0.20, C.back],
+    [1120, 780,  62, 35, 0.22, C.back],
+    [1310, 780,  68, 39, 0.20, C.back],
+    // ── Mid layer — medium
+    [140,  792, 112, 60, 0.36, C.mid],
+    [350,  792, 122, 66, 0.34, C.mid],
+    [555,  792, 116, 63, 0.36, C.mid],
+    [740,  792, 120, 65, 0.34, C.mid],
+    [930,  792, 114, 61, 0.36, C.mid],
+    [1130, 792, 121, 65, 0.34, C.mid],
+    [1340, 792, 110, 59, 0.36, C.mid],
+    // ── Front layer — large, full blossom
+    [-15,  800, 180,  90, 0.55, C.front],
+    [255,  800, 205, 105, 0.55, C.front],
+    [520,  800, 222, 116, 0.55, C.front],
+    [715,  800, 234, 123, 0.55, C.front],
+    [905,  800, 216, 113, 0.55, C.front],
+    [1155, 800, 202, 103, 0.55, C.front],
+    [1455, 800, 182,  88, 0.55, C.front],
+  ];
+
+  function makeTree(cx, by, th, r, op, cols) {
+    const [cb, cl, ch] = cols;            // base, light, highlight
+    const ty = by - th;                   // trunk top y
+    const cy = ty - r * 0.45;            // canopy cluster centre y
+    const tw = Math.max(r * 0.11, 6);    // trunk half-width at base
+    const bw = Math.max(r * 0.08, 4);    // branch stroke-width
+    const bY = ty + th * 0.32;           // branch junction y
+
+    return `<g opacity="${op}">
+      <!-- trunk -->
+      <path d="M${cx-tw},${by} L${cx-tw*.5},${ty} L${cx+tw*.5},${ty} L${cx+tw},${by}Z"
+            fill="${TRUNK}"/>
+      <!-- branches -->
+      <path d="M${cx},${bY} Q${cx-r*.42},${bY-th*.1} ${cx-r*.52},${cy+r*.6}"
+            stroke="${TRUNK}" stroke-width="${bw}" fill="none" stroke-linecap="round"/>
+      <path d="M${cx},${bY} Q${cx+r*.42},${bY-th*.1} ${cx+r*.52},${cy+r*.6}"
+            stroke="${TRUNK}" stroke-width="${bw}" fill="none" stroke-linecap="round"/>
+      <!-- canopy — outer blossom mass -->
+      <ellipse cx="${cx}"        cy="${cy+r*.22}" rx="${r}"     ry="${r*.74}" fill="${cb}"/>
+      <ellipse cx="${cx-r*.48}"  cy="${cy+r*.40}" rx="${r*.66}" ry="${r*.56}" fill="${cb}"/>
+      <ellipse cx="${cx+r*.48}"  cy="${cy+r*.40}" rx="${r*.66}" ry="${r*.56}" fill="${cb}"/>
+      <ellipse cx="${cx}"        cy="${cy+r*.50}" rx="${r*.76}" ry="${r*.50}" fill="${cb}"/>
+      <!-- canopy — inner lighter blossoms -->
+      <ellipse cx="${cx}"        cy="${cy}"        rx="${r*.70}" ry="${r*.60}" fill="${cl}"/>
+      <ellipse cx="${cx-r*.26}"  cy="${cy+r*.12}" rx="${r*.50}" ry="${r*.45}" fill="${cl}"/>
+      <ellipse cx="${cx+r*.26}"  cy="${cy+r*.12}" rx="${r*.50}" ry="${r*.45}" fill="${cl}"/>
+      <!-- canopy — sunlit highlight at top -->
+      <ellipse cx="${cx}"        cy="${cy-r*.08}" rx="${r*.44}" ry="${r*.36}" fill="${ch}"/>
+    </g>`;
+  }
+
+  const ns  = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('preserveAspectRatio', 'xMidYMax slice');
+  svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+  svg.innerHTML     = trees.map(t => makeTree(...t)).join('');
+  container.appendChild(svg);
 })();
 
 

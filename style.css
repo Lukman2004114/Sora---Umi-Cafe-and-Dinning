@@ -163,6 +163,62 @@ body {
   overflow: hidden;
 }
 
+#steam-layer,
+#tea-leaf-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Steam wisps */
+.steam-wisp {
+  position: absolute;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 248, 230, 0.38) 0%,
+    rgba(255, 248, 230, 0.12) 50%,
+    transparent 70%
+  );
+  filter: blur(14px);
+  animation: steam-rise linear infinite;
+}
+
+@keyframes steam-rise {
+  0%   { transform: translateY(0)    translateX(0px);             opacity: 0;    }
+  8%   { opacity: 0.75; }
+  25%  { transform: translateY(-22vh) translateX(var(--drift));   }
+  50%  { transform: translateY(-50vh) translateX(calc(var(--drift) * -0.6)); opacity: 0.45; }
+  75%  { transform: translateY(-75vh) translateX(var(--drift));   opacity: 0.2;  }
+  100% { transform: translateY(-110vh) translateX(0px);           opacity: 0;    }
+}
+
+/* Tea leaves */
+.tea-leaf {
+  position: absolute;
+  pointer-events: none;
+  animation: tea-leaf-drift linear infinite;
+  opacity: 0;
+}
+
+.tea-leaf svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes tea-leaf-drift {
+  0%   { transform: translateY(-5vh)  translateX(0px)  rotate(0deg);   opacity: 0;    }
+  8%   { opacity: 1; }
+  40%  { transform: translateY(35vh)  translateX(var(--drift))  rotate(120deg);        }
+  75%  { transform: translateY(70vh)  translateX(calc(var(--drift) * -0.4)) rotate(240deg); opacity: 0.7; }
+  92%  { opacity: 0.2; }
+  100% { transform: translateY(108vh) translateX(0px)  rotate(360deg);  opacity: 0;    }
+}
+
 /* ─── TYPOGRAPHY SCALE ──────────────────────────────────────── */
 .section-label {
   display: inline-flex;
@@ -569,6 +625,15 @@ body {
   pointer-events: none;
 }
 
+/* Sakura Forest — full-hero silhouette trees */
+.sakura-forest {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
 /* Clouds */
 .cloud {
   position: absolute;
@@ -629,6 +694,69 @@ body {
 @keyframes lantern-sway {
   0%,100% { transform: rotate(-4deg); }
   50%      { transform: rotate(4deg); }
+}
+
+/* Paper Cranes */
+.crane {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+  filter: drop-shadow(0 2px 8px rgba(255, 150, 180, 0.25));
+}
+
+.crane-1 {
+  top: 20%;
+  right: 28%;
+  width: 48px;
+  opacity: 0.85;
+  animation: crane-float 7s ease-in-out infinite;
+}
+
+.crane-2 {
+  top: 12%;
+  left: 55%;
+  width: 33px;
+  opacity: 0.7;
+  animation: crane-float-flip 10s ease-in-out infinite 2.5s;
+}
+
+.crane-3 {
+  top: 34%;
+  left: 25%;
+  width: 42px;
+  opacity: 0.75;
+  animation: crane-float 9s ease-in-out infinite 5s;
+}
+
+.crane-4 {
+  top: 16%;
+  right: 44%;
+  width: 28px;
+  opacity: 0.65;
+  animation: crane-float-flip 11s ease-in-out infinite 1.5s;
+}
+
+@keyframes crane-float {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50%       { transform: translateY(-14px) rotate(2deg); }
+}
+
+@keyframes crane-float-flip {
+  0%, 100% { transform: scaleX(-1) translateY(0px) rotate(2deg); }
+  50%       { transform: scaleX(-1) translateY(-14px) rotate(-2deg); }
+}
+
+/* Torii Gate */
+.torii-gate {
+  position: absolute;
+  bottom: 55px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(200px, 28vw, 340px);
+  z-index: 2;
+  opacity: 0.82;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 28px rgba(139, 26, 26, 0.4));
 }
 
 /* Hero Content */
@@ -1891,6 +2019,10 @@ body {
   .hero-kanji { font-size: clamp(4rem, 18vw, 7rem); }
   .hero-btns { flex-direction: column; align-items: stretch; }
   .hero-btns a { text-align: center; }
+  .crane-3, .crane-4 { display: none; }
+  .crane-1 { width: 38px; right: 22%; }
+  .crane-2 { width: 26px; }
+  .torii-gate { width: clamp(160px, 40vw, 220px); bottom: 45px; }
 
   /* Story */
   .story-visual { display: none; }
@@ -1942,4 +2074,6 @@ body {
   .gallery-placeholder { aspect-ratio: 4/3; }
   .hero-kanji { font-size: clamp(3.5rem, 20vw, 5.5rem); }
   .dining-names { flex-direction: column; gap: var(--sp-1); }
+  .crane-1, .crane-2 { display: none; }
+  .torii-gate { width: 150px; bottom: 40px; }
 }
