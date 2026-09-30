@@ -926,6 +926,649 @@ document.querySelectorAll('.gallery-item').forEach((item, i) => {
 
 
 /* ─────────────────────────────────────────────
+   EDUCATIONAL BANNER
+───────────────────────────────────────────── */
+(function initEduBanner() {
+  const banner = document.getElementById('edu-banner');
+  const closeBtn = document.getElementById('edu-banner-close');
+  if (!banner || !closeBtn) return;
+
+  // Push navbar down while banner is visible
+  document.body.classList.add('has-edu-banner');
+
+  closeBtn.addEventListener('click', () => {
+    banner.hidden = true;
+    document.body.classList.remove('has-edu-banner');
+    // Restore navbar to top
+    const nb = document.getElementById('navbar');
+    if (nb) nb.style.top = '0';
+  });
+})();
+
+
+/* ─────────────────────────────────────────────
+   SECURESHIELD PRO — EDUCATIONAL SCAM MODAL
+   Demonstrates logical fallacies used in scams
+───────────────────────────────────────────── */
+(function initScamModal() {
+  const modal      = document.getElementById('scam-modal');
+  const box        = document.getElementById('scam-box');
+  const backdrop   = document.getElementById('scam-backdrop');
+  const closeBtn   = document.getElementById('scam-close');
+  const protectBtn = document.getElementById('scam-btn-protect');
+  const revealBtn  = document.getElementById('scam-btn-reveal');
+  const demoNote   = document.getElementById('scam-demo-note');
+  const explain    = document.getElementById('scam-explain');
+  const timerEl    = document.getElementById('scam-timer');
+  const scanFill   = document.getElementById('scam-scan-fill');
+  const scanFile   = document.getElementById('scam-scan-file');
+  const scanResult = document.getElementById('scam-scan-result');
+  const threats    = document.getElementById('scam-threats');
+  const ipEl       = document.getElementById('scam-ip');
+
+  if (!modal) return;
+
+  // Fake IP (randomly generated, not a real lookup)
+  if (ipEl) {
+    ipEl.textContent = '192.168.' + (Math.floor(Math.random() * 254) + 1) + '.' + (Math.floor(Math.random() * 254) + 1);
+  }
+
+  // — Element that triggered open (for focus return) —
+  let triggerEl = null;
+  // — Countdown state —
+  let countdownInterval = null;
+  let secondsLeft = 300;
+  // — Reveal state —
+  let revealMode = false;
+  // — Scan state —
+  let scanInterval = null;
+
+  // ── Screen flash on open ──────────────────
+  function flashScreen() {
+    const flash = document.createElement('div');
+    flash.style.cssText = `
+      position: fixed; inset: 0; z-index: 9590;
+      background: rgba(0, 60, 200, 0.38);
+      pointer-events: none;
+      animation: scam-screen-flash 0.55s ease-out forwards;
+    `;
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 600);
+  }
+
+  // ── Fake scan animation ───────────────────
+  const fakeFiles = [
+    'C:\\Windows\\System32\\svchost.exe',
+    'C:\\Users\\User\\AppData\\Roaming\\...',
+    'C:\\Program Files\\Chrome\\cache...',
+    'C:\\Windows\\Temp\\tmp4f8e2a1...',
+    'C:\\Users\\User\\Documents\\...',
+    'C:\\Windows\\System32\\drivers...',
+  ];
+
+  function runScan() {
+    if (!scanFill) return;
+    if (scanInterval) clearInterval(scanInterval);
+    let progress = 0;
+    let fileIdx  = 0;
+    scanFill.style.width = '0%';
+    if (scanResult) scanResult.hidden = true;
+    if (threats)    threats.hidden    = true;
+    if (scanFile)   scanFile.textContent = 'Initialising…';
+
+    scanInterval = setInterval(() => {
+      progress += Math.random() * 7 + 2;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(scanInterval);
+        scanInterval = null;
+        if (scanFill) scanFill.style.width = '100%';
+        if (scanFile) scanFile.textContent = 'Scan complete';
+        if (scanResult) scanResult.hidden = false;
+        if (threats)    threats.hidden    = false;
+        return;
+      }
+      if (scanFill) scanFill.style.width = progress + '%';
+      const newIdx = Math.floor(progress / 18);
+      if (newIdx > fileIdx) {
+        fileIdx = newIdx;
+        if (scanFile) scanFile.textContent = fakeFiles[fileIdx % fakeFiles.length];
+      }
+    }, 130);
+  }
+
+  // ── Open ──────────────────────────────────
+  function openModal(trigger) {
+    triggerEl = trigger || null;
+    modal.hidden = false;
+    secondsLeft = 300;
+    updateTimer();
+    startCountdown();
+    flashScreen();
+    runScan();
+    // Reset reveal mode
+    revealMode = false;
+    box.classList.remove('reveal-mode');
+    revealBtn.setAttribute('aria-pressed', 'false');
+    revealBtn.innerHTML = '&#128269; Show me the tricks';
+    demoNote.hidden = true;
+    explain.hidden  = true;
+    // Move focus into modal
+    requestAnimationFrame(() => { box.focus(); });
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+  }
+
+  // ── Close ─────────────────────────────────
+  function closeModal() {
+    modal.hidden = true;
+    stopCountdown();
+    document.body.style.overflow = '';
+    // Return focus to trigger
+    if (triggerEl) { triggerEl.focus(); }
+  }
+
+  // ── Countdown timer ───────────────────────
+  function updateTimer() {
+    const m = String(Math.floor(secondsLeft / 60)).padStart(2, '0');
+    const s = String(secondsLeft % 60).padStart(2, '0');
+    timerEl.textContent = m + ':' + s;
+  }
+
+  function startCountdown() {
+    stopCountdown();
+    countdownInterval = setInterval(() => {
+      if (secondsLeft > 0) {
+        secondsLeft--;
+        updateTimer();
+      }
+      // Timer loops back at 0 — fake urgency is always fake
+      if (secondsLeft <= 0) { secondsLeft = 300; }
+    }, 1000);
+  }
+
+  function stopCountdown() {
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+    }
+  }
+
+  // ── Keyboard trap inside modal ─────────────
+  function trapFocus(e) {
+    if (modal.hidden) return;
+    const focusable = Array.from(
+      box.querySelectorAll(
+        'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter(el => !el.closest('[hidden]'));
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last  = focusable[focusable.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+    if (e.key === 'Escape') { closeModal(); }
+  }
+
+  document.addEventListener('keydown', trapFocus);
+
+  // ── Crash effect before modal ─────────────
+  if (!document.querySelector('#crash-styles')) {
+    const crashCSS = document.createElement('style');
+    crashCSS.id = 'crash-styles';
+    crashCSS.textContent = `
+      /* === Phase 1: page dying — filter corruption + shake === */
+      body.page-dying {
+        animation: page-die 0.07s steps(2) infinite;
+        overflow: hidden !important;
+        cursor: wait !important;
+        user-select: none;
+      }
+      body.page-dying * { cursor: wait !important; pointer-events: none !important; }
+      @keyframes page-die {
+        0%   { filter: none;                                           transform: translate(0,0)       skewX(0deg); }
+        20%  { filter: saturate(8) hue-rotate(90deg) contrast(3);     transform: translate(-5px,3px)  skewX(-1.5deg); }
+        40%  { filter: invert(1) hue-rotate(180deg) brightness(1.4);  transform: translate(6px,-2px)  skewX(1deg); }
+        60%  { filter: saturate(0) contrast(12) brightness(2.5);      transform: translate(-4px,5px)  skewX(0deg); }
+        80%  { filter: hue-rotate(270deg) saturate(6) contrast(2);    transform: translate(4px,-4px)  skewX(-1deg); }
+        100% { filter: none;                                           transform: translate(0,0)       skewX(0deg); }
+      }
+
+      /* === Phase 2: Chrome "Page Unresponsive" dialog === */
+      #chrome-backdrop {
+        position: fixed; inset: 0; z-index: 9792;
+        background: rgba(0,0,0,0.30);
+        animation: cfadein 0.13s ease-out;
+      }
+      @keyframes cfadein { from { opacity:0; } to { opacity:1; } }
+      #chrome-dialog {
+        position: fixed; top: 50%; left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 9793;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.07);
+        width: 430px; max-width: 92vw;
+        font-family: 'Google Sans', Roboto, system-ui, sans-serif;
+        overflow: hidden;
+        animation: cdialog-in 0.15s cubic-bezier(0.2,0,0,1);
+      }
+      @keyframes cdialog-in {
+        from { transform: translate(-50%,-47%); opacity:0; }
+        to   { transform: translate(-50%,-50%); opacity:1; }
+      }
+      .cd-titlebar {
+        background: #f1f3f4; padding: 10px 16px;
+        font-size: 12.5px; color: #202124; font-weight: 500;
+        border-bottom: 1px solid #dadce0;
+        display: flex; align-items: center; gap: 9px;
+      }
+      .cd-body {
+        padding: 18px 20px 10px;
+        font-size: 13.5px; color: #3c4043; line-height: 1.55;
+      }
+      .cd-page-url {
+        font-size: 11.5px; color: #80868b;
+        margin-top: 6px; white-space: nowrap;
+        overflow: hidden; text-overflow: ellipsis;
+      }
+      .cd-actions {
+        padding: 10px 16px 16px;
+        display: flex; justify-content: flex-end; gap: 8px;
+      }
+      .cd-btn {
+        padding: 7px 18px; border-radius: 4px;
+        font-size: 13px; font-weight: 500; border: none;
+        cursor: default;
+        font-family: 'Google Sans', Roboto, system-ui, sans-serif;
+      }
+      .cd-btn-wait { background: transparent; color: #1a73e8; }
+      .cd-btn-kill { background: #1a73e8; color: #fff; }
+
+      /* === Phase 3: GPU corruption canvas === */
+      #gpu-canvas {
+        position: fixed; inset: 0; z-index: 9795;
+        pointer-events: none;
+      }
+
+      /* === Phase 4: screen flicker === */
+      #flash-overlay {
+        position: fixed; inset: 0; z-index: 9797;
+        pointer-events: none; background: #000; opacity: 0;
+      }
+
+      /* === Phase 5: Windows 11 BSOD === */
+      #bsod-overlay {
+        position: fixed; inset: 0; z-index: 9800;
+        background: #1a52a1;
+        display: flex; flex-direction: column;
+        justify-content: center;
+        padding: clamp(36px, 7.5vw, 130px);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        color: #fff; overflow: hidden;
+        cursor: none !important;
+      }
+      #bsod-overlay * { cursor: none !important; }
+      .bsod-winlogo { margin-bottom: clamp(14px, 2.2vw, 28px); }
+      .bsod-sad {
+        font-size: clamp(68px, 12.5vw, 155px);
+        line-height: 1; font-weight: 300;
+        margin-bottom: clamp(18px, 2.8vw, 34px);
+        letter-spacing: -4px; user-select: none;
+      }
+      .bsod-main {
+        font-size: clamp(17px, 2.5vw, 34px);
+        font-weight: 400; max-width: 680px;
+        line-height: 1.4; margin-bottom: 14px;
+      }
+      /* Windows 11 spinning dots */
+      .bsod-spinner {
+        display: flex;
+        gap: clamp(7px, 0.9vw, 11px);
+        margin-bottom: clamp(10px, 1.8vw, 18px);
+      }
+      .bsod-dot {
+        width:  clamp(7px, 1.1vw, 11px);
+        height: clamp(7px, 1.1vw, 11px);
+        border-radius: 50%;
+        background: rgba(255,255,255,0.22);
+        animation: bdot 1.6s ease-in-out infinite;
+      }
+      .bsod-dot:nth-child(1){animation-delay:0s}
+      .bsod-dot:nth-child(2){animation-delay:.16s}
+      .bsod-dot:nth-child(3){animation-delay:.32s}
+      .bsod-dot:nth-child(4){animation-delay:.48s}
+      .bsod-dot:nth-child(5){animation-delay:.64s}
+      @keyframes bdot {
+        0%,55%,100% { background: rgba(255,255,255,0.22); transform: scale(1); }
+        27%          { background: rgba(255,255,255,1);    transform: scale(1.2); }
+      }
+      .bsod-pct {
+        font-size: clamp(13px, 1.7vw, 21px);
+        font-weight: 400;
+        margin-bottom: clamp(36px, 6.5vw, 85px);
+      }
+      .bsod-bottom {
+        position: absolute;
+        bottom: clamp(22px, 4vw, 56px);
+        left:   clamp(36px, 7.5vw, 130px);
+        right:  clamp(36px, 7.5vw, 130px);
+        display: flex; align-items: flex-start; gap: 22px;
+      }
+      .bsod-qr { flex-shrink: 0; }
+      .bsod-stop {
+        font-size: clamp(9px, 1vw, 13px);
+        line-height: 1.75; opacity: 0.88;
+      }
+      .bsod-stop u { opacity: 0.7; }
+    `;
+    document.head.appendChild(crashCSS);
+  }
+
+  // ── Sound: hard click + white-noise burst + dying-machine tone ──
+  function playGlitchSound() {
+    try {
+      const ac = new (window.AudioContext || window.webkitAudioContext)();
+      const t  = ac.currentTime;
+      // Hard click pop at t=0
+      const clk = ac.createOscillator();
+      const cg  = ac.createGain();
+      clk.type = 'square'; clk.frequency.value = 90;
+      cg.gain.setValueAtTime(0.55, t);
+      cg.gain.exponentialRampToValueAtTime(0.001, t + 0.035);
+      clk.connect(cg); cg.connect(ac.destination);
+      clk.start(t); clk.stop(t + 0.035);
+      // White-noise burst fading out
+      const frames = Math.floor(ac.sampleRate * 0.32);
+      const buf = ac.createBuffer(1, frames, ac.sampleRate);
+      const d   = buf.getChannelData(0);
+      for (let i = 0; i < frames; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / frames);
+      const noise = ac.createBufferSource();
+      noise.buffer = buf;
+      const ng = ac.createGain(); ng.gain.value = 0.20;
+      noise.connect(ng); ng.connect(ac.destination); noise.start(t);
+      // Descending sawtooth — "dying machine" power-down
+      const osc = ac.createOscillator();
+      const og  = ac.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(500, t);
+      osc.frequency.exponentialRampToValueAtTime(25, t + 0.6);
+      og.gain.setValueAtTime(0.15, t);
+      og.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+      osc.connect(og); og.connect(ac.destination);
+      osc.start(t); osc.stop(t + 0.6);
+    } catch (_) {}
+  }
+
+  // ── GPU artifact canvas: random colored corruption tiles ──
+  function paintGPUArtifacts(canvas) {
+    const ctx = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // Horizontal screen-tear bands
+    const tearColors = ['#ff0044','#00d4ff','#7f00ff','#00ff80','#ff8800','#fff','#ff00ff','#ffff00','#00ffff'];
+    for (let i = 0; i < 260; i++) {
+      ctx.fillStyle = tearColors[i % tearColors.length];
+      ctx.globalAlpha = 0.55 + Math.random() * 0.45;
+      const w = 8  + Math.random() * 220;
+      const h = 1  + Math.random() * 22;
+      ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, w, h);
+    }
+    // Large corrupted blocks (GPU VRAM dump look)
+    for (let i = 0; i < 18; i++) {
+      ctx.fillStyle = tearColors[Math.floor(Math.random() * tearColors.length)];
+      ctx.globalAlpha = 0.40 + Math.random() * 0.55;
+      const w = 50  + Math.random() * 340;
+      const h = 12  + Math.random() * 90;
+      ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, w, h);
+    }
+    // Scattered single pixel noise
+    for (let i = 0; i < 800; i++) {
+      ctx.fillStyle = '#fff';
+      ctx.globalAlpha = Math.random();
+      ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ── Fake QR code SVG ──
+  function makeFakeQR() {
+    const S = 21, C = 4, W = S * C;
+    let r = '';
+    function corner(ox, oy) {
+      r += `<rect x="${ox}" y="${oy}" width="${7*C}" height="${7*C}" fill="white"/>`;
+      r += `<rect x="${ox+C}" y="${oy+C}" width="${5*C}" height="${5*C}" fill="#1a52a1"/>`;
+      r += `<rect x="${ox+2*C}" y="${oy+2*C}" width="${3*C}" height="${3*C}" fill="white"/>`;
+    }
+    corner(0,0); corner((S-7)*C,0); corner(0,(S-7)*C);
+    for (let row=0;row<S;row++) for (let col=0;col<S;col++) {
+      if ((row<8&&col<8)||(row<8&&col>=S-8)||(row>=S-8&&col<8)) continue;
+      if (Math.random()>0.52) r+=`<rect x="${col*C}" y="${row*C}" width="${C}" height="${C}" fill="white"/>`;
+    }
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${W}" viewBox="0 0 ${W} ${W}" style="image-rendering:pixelated;display:block">${r}</svg>`;
+  }
+
+  function triggerCrash(trigger) {
+    const origTitle = document.title;
+
+    // ── PHASE 1 (0–400ms): page corruption — filter glitch + shake ──
+    document.body.classList.add('page-dying');
+    document.body.style.overflow = 'hidden';
+    document.title = '● Not Responding';
+    playGlitchSound();
+
+    // Tab title flickers between original and "Not Responding"
+    let titleFlip = 0;
+    const titleFlicker = setInterval(() => {
+      document.title = titleFlip++ % 2 === 0 ? origTitle : '● Not Responding';
+    }, 120);
+
+    // ── PHASE 2 (400–1250ms): Chrome "Page Unresponsive" dialog ──
+    setTimeout(() => {
+      document.body.classList.remove('page-dying');
+      document.body.style.transform = '';
+
+      const backdrop = document.createElement('div');
+      backdrop.id = 'chrome-backdrop';
+
+      const dlg = document.createElement('div');
+      dlg.id = 'chrome-dialog';
+      dlg.innerHTML = `
+        <div class="cd-titlebar">
+          <svg width="18" height="18" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="9" fill="#dadce0"/>
+            <path d="M10,4.5 L15.26,7.75 L10,10Z" fill="#ea4335"/>
+            <path d="M15.26,7.75 L15.26,12.25 L10,10Z" fill="#fbbc04"/>
+            <path d="M15.26,12.25 L4.74,12.25 L10,10Z" fill="#34a853"/>
+            <path d="M4.74,12.25 L4.74,7.75 L10,10Z" fill="#4285f4"/>
+            <circle cx="10" cy="10" r="3" fill="#fff"/>
+          </svg>
+          Page Unresponsive
+        </div>
+        <div class="cd-body">
+          The following page has become unresponsive. You can wait for it to become responsive or kill it.
+          <div class="cd-page-url">空と海 · Sora &amp; Umi Café &amp; Dining — localhost/index.html</div>
+        </div>
+        <div class="cd-actions">
+          <button class="cd-btn cd-btn-wait">Wait</button>
+          <button class="cd-btn cd-btn-kill">Kill page</button>
+        </div>
+      `;
+      dlg.querySelectorAll('.cd-btn').forEach(b => b.addEventListener('click', e => e.preventDefault()));
+
+      document.body.appendChild(backdrop);
+      document.body.appendChild(dlg);
+
+      // Dialog holds for 850ms, then collapses into GPU artifact phase
+      setTimeout(() => {
+        backdrop.remove();
+        dlg.style.transition = 'opacity 0.1s, transform 0.1s';
+        dlg.style.opacity    = '0';
+        dlg.style.transform  = 'translate(-50%,-52%)';
+        setTimeout(() => { dlg.remove(); showGPU(); }, 110);
+      }, 850);
+    }, 400);
+
+    // ── PHASE 3 (1250–1600ms): GPU VRAM corruption ──
+    function showGPU() {
+      const canvas = document.createElement('canvas');
+      canvas.id = 'gpu-canvas';
+      document.body.appendChild(canvas);
+      paintGPUArtifacts(canvas);
+
+      // Rapidly repaint (flickering corruption)
+      let redraws = 0;
+      const rdInt = setInterval(() => {
+        paintGPUArtifacts(canvas);
+        if (++redraws >= 5) clearInterval(rdInt);
+      }, 65);
+
+      setTimeout(() => { canvas.remove(); showFlicker(); }, 350);
+    }
+
+    // ── PHASE 4 (1600–1800ms): monitor signal loss flicker ──
+    function showFlicker() {
+      clearInterval(titleFlicker);
+      document.title = 'Recovery';
+
+      const flash = document.createElement('div');
+      flash.id = 'flash-overlay';
+      document.body.appendChild(flash);
+
+      const seq = [1,0,1,0,1,0,1,1,0,1,0,0]; // irregular flicker pattern
+      let fi = 0;
+      const flk = setInterval(() => {
+        flash.style.opacity = seq[fi] === 1 ? '0.95' : '0';
+        fi++;
+        if (fi >= seq.length) { clearInterval(flk); flash.remove(); showBSOD(); }
+      }, 28);
+    }
+
+    // ── PHASE 5: Windows 11 BSOD ──
+    function showBSOD() {
+      const bsod = document.createElement('div');
+      bsod.id = 'bsod-overlay';
+      bsod.innerHTML = `
+        <div class="bsod-winlogo">
+          <svg width="42" height="42" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0"  y="0"  width="19" height="19" fill="#f35325"/>
+            <rect x="22" y="0"  width="19" height="19" fill="#81bc06"/>
+            <rect x="0"  y="22" width="19" height="19" fill="#05a6f0"/>
+            <rect x="22" y="22" width="19" height="19" fill="#ffba08"/>
+          </svg>
+        </div>
+        <div class="bsod-sad">:(</div>
+        <div class="bsod-main">Your PC ran into a problem and needs to restart. We&#39;re just collecting some error info, and then we&#39;ll restart for you.</div>
+        <div class="bsod-spinner">
+          <div class="bsod-dot"></div><div class="bsod-dot"></div>
+          <div class="bsod-dot"></div><div class="bsod-dot"></div>
+          <div class="bsod-dot"></div>
+        </div>
+        <div class="bsod-pct" id="bsod-pct">0% complete</div>
+        <div class="bsod-bottom">
+          <div class="bsod-qr">${makeFakeQR()}</div>
+          <div class="bsod-stop">
+            For more information about this issue and possible fixes,<br>
+            visit <u>https://www.windows.com/stopcode</u><br><br>
+            If you call a support person, give them this info:<br>
+            Stop code: &nbsp;<strong>CRITICAL_PROCESS_DIED</strong><br>
+            What failed: <strong>BrowserHost.exe</strong>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(bsod);
+
+      // Realistic stalling progress — mirrors real BSOD pauses at ~11%, ~33%, ~67%
+      const pctEl  = document.getElementById('bsod-pct');
+      const stalls = [{ at: 11, hold: 32 }, { at: 33, hold: 22 }, { at: 67, hold: 16 }];
+      let pct = 0, si = 0, stallCount = 0;
+
+      const prog = setInterval(() => {
+        const st = stalls[si];
+        if (st && pct >= st.at && stallCount < st.hold) { stallCount++; return; }
+        if (stallCount > 0) { si++; stallCount = 0; }
+
+        const speed = pct < 14 ? 0.65 : pct < 40 ? 1.2 : pct < 70 ? 0.85 : 2.8;
+        pct = Math.min(100, pct + speed * (0.7 + Math.random() * 0.55));
+        if (pctEl) pctEl.textContent = Math.floor(pct) + '% complete';
+
+        if (pct >= 100) {
+          clearInterval(prog);
+          setTimeout(() => {
+            bsod.style.transition = 'background 0.06s';
+            bsod.style.background = '#fff';
+            setTimeout(() => {
+              bsod.remove();
+              document.title = origTitle;
+              openModal(trigger);
+            }, 120);
+          }, 400);
+        }
+      }, 90);
+    }
+  }
+
+  // ── Intercept "Reserve a Table" nav button ─
+  // Use capture phase so this fires before the existing smooth-scroll handler
+  const navCta = document.querySelector('.nav-cta');
+  if (navCta) {
+    navCta.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      triggerCrash(navCta);
+    }, { capture: true });
+  }
+
+  // Also intercept the experience-section "Book" button (also links to #reservation)
+  const expBtn = document.querySelector('.exp-content .btn-primary');
+  if (expBtn) {
+    expBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      triggerCrash(expBtn);
+    }, { capture: true });
+  }
+
+  // ── Close on × button ─────────────────────
+  if (closeBtn) { closeBtn.addEventListener('click', closeModal); }
+
+  // ── Close on backdrop click ────────────────
+  if (backdrop) {
+    backdrop.addEventListener('click', closeModal);
+  }
+
+  // ── "Protect me now" — demo only ──────────
+  if (protectBtn) {
+    protectBtn.addEventListener('click', () => {
+      demoNote.hidden = false;
+      demoNote.focus();
+    });
+  }
+
+  // ── "Show me the tricks" toggle ────────────
+  if (revealBtn) {
+    revealBtn.addEventListener('click', () => {
+      revealMode = !revealMode;
+      box.classList.toggle('reveal-mode', revealMode);
+      revealBtn.setAttribute('aria-pressed', String(revealMode));
+      explain.hidden = !revealMode;
+      revealBtn.innerHTML = revealMode
+        ? '&#128269; Hide the tricks'
+        : '&#128269; Show me the tricks';
+      if (revealMode) {
+        explain.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  }
+})();
+
+
+/* ─────────────────────────────────────────────
    13. SCROLL PROGRESS BAR
    Fills gold → teal → sakura as page scrolls
 ───────────────────────────────────────────── */

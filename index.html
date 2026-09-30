@@ -28,6 +28,14 @@
   <div id="scroll-progress" aria-hidden="true"></div>
 
   <!-- ═══════════════════════════════════════════
+       EDUCATIONAL DISCLAIMER BANNER
+  ══════════════════════════════════════════════ -->
+  <div id="edu-banner" role="note" aria-label="Educational disclaimer">
+    <span>&#9432;&#xFE0E; Educational project — SecureShield Pro is a fictional company. Nothing here is a real product or service.</span>
+    <button id="edu-banner-close" aria-label="Dismiss disclaimer">&#215;</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
        NAVBAR
   ══════════════════════════════════════════════ -->
   <nav id="navbar" role="navigation" aria-label="Main navigation">
@@ -1152,6 +1160,98 @@
       <p class="footer-craft">Crafted with reverence for the ocean.</p>
     </div>
   </footer>
+
+  <!-- ═══════════════════════════════════════════
+       SECURESHIELD PRO — EDUCATIONAL SCAM MODAL
+       School cybersecurity assignment — logical fallacies demonstration.
+       SecureShield Pro is entirely fictional. No data is collected or sent.
+  ══════════════════════════════════════════════ -->
+  <div id="scam-modal" role="dialog" aria-modal="true" aria-labelledby="scam-title" hidden>
+    <div id="scam-backdrop"></div>
+    <div id="scam-layout" style="position:relative;z-index:1;display:flex;align-items:stretch;gap:16px;max-height:92vh;">
+      <img src="img/img.png" alt="SecureShield Pro poster" id="scam-poster" style="width:560px;max-width:560px;object-fit:cover;border-radius:6px;flex-shrink:0;display:block;" />
+    <div id="scam-box" tabindex="-1">
+
+      <!-- Flashing alert strip at very top -->
+      <div id="scam-strip" aria-hidden="true">&#9888; SECURITY ALERT — IMMEDIATE ACTION REQUIRED &#9888;</div>
+
+      <button id="scam-close" aria-label="Close pop-up">&#215;</button>
+
+      <div id="scam-header">
+        <!-- Custom SVG shield instead of emoji -->
+        <svg id="scam-icon" aria-hidden="true" viewBox="0 0 64 72" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 4 L58 14 L58 36 C58 52 44 64 32 68 C20 64 6 52 6 36 L6 14 Z" fill="#00001a" stroke="#0044cc" stroke-width="3"/>
+          <path d="M32 8 L54 17 L54 36 C54 50 42 61 32 65 C22 61 10 50 10 36 L10 17 Z" fill="#00002a" stroke="#2266ff" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <text x="32" y="44" text-anchor="middle" font-size="28" font-family="sans-serif" fill="#2266ff" font-weight="900">!</text>
+          <line x1="32" y1="22" x2="32" y2="36" stroke="#2266ff" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="32" cy="44" r="3.5" fill="#2266ff"/>
+        </svg>
+        <p id="scam-brand">SecureShield Pro — Critical Warning</p>
+        <h2 id="scam-title">
+          <mark data-f="Appeal to fear">&#9888; 47 VIRUSES DETECTED!</mark>
+        </h2>
+        <!-- Fake system info -->
+        <div id="scam-sysinfo" aria-hidden="true">
+          <span>IP: <strong id="scam-ip">Loading…</strong></span>
+          <span>OS: <strong>Windows 11</strong></span>
+          <span>Status: <strong class="scam-red">COMPROMISED</strong></span>
+        </div>
+        <div id="scam-timer-wrap">
+          <mark data-f="Fake urgency">Your device will be unprotected in&nbsp;<span id="scam-timer">05:00</span></mark>
+        </div>
+      </div>
+
+      <!-- Fake scan bar -->
+      <div id="scam-scan-wrap">
+        <div id="scam-scan-label">Scanning: <span id="scam-scan-file">Initialising…</span></div>
+        <div id="scam-scan-track"><div id="scam-scan-fill"></div></div>
+        <div id="scam-scan-result" hidden>&#10006; CRITICAL THREATS FOUND — REMOVAL REQUIRED</div>
+      </div>
+
+      <!-- Fake detected-threat list -->
+      <div id="scam-threats" hidden>
+        <div class="scam-threat"><span class="st-bullet">&#9632;</span><span class="st-name">Trojan.GenericKD.47821992</span><span class="st-tag">ACTIVE</span></div>
+        <div class="scam-threat"><span class="st-bullet">&#9632;</span><span class="st-name">Spyware.KeyLogger.Win32</span><span class="st-tag">SPREADING</span></div>
+        <div class="scam-threat"><span class="st-bullet">&#9632;</span><span class="st-name">Ransomware.Crypt.FileVault</span><span class="st-tag">CRITICAL</span></div>
+      </div>
+
+      <div id="scam-body">
+        <p><mark data-f="Slippery slope">Devices with these symptoms get hacked, then lose all their data, then have their identity stolen.</mark></p>
+        <p><mark data-f="Appeal to authority">Microsoft-certified experts recommend SecureShield Pro.</mark></p>
+        <p><mark data-f="Bandwagon">Over 5 million smart users already installed it.</mark></p>
+        <p><mark data-f="Appeal to novelty">Its newest AI technology beats every older antivirus.</mark></p>
+        <p><mark data-f="False cause">My friend installed it and never got hacked again.</mark></p>
+        <p><mark data-f="False dilemma">Install now or lose your files forever.</mark></p>
+        <p><mark data-f="Ad hominem">Only careless people ignore this warning.</mark></p>
+      </div>
+
+      <div id="scam-actions">
+        <button id="scam-btn-protect" type="button">&#128274; Protect me now</button>
+        <button id="scam-btn-reveal" type="button">&#128269; Show me the tricks</button>
+      </div>
+
+      <p id="scam-demo-note" hidden>Demo only. Nothing is installed or sold.</p>
+
+      <div id="scam-explain" hidden>
+        <h3>How these manipulation tactics work</h3>
+        <p>Each highlighted phrase uses a logical fallacy to pressure you into clicking. Here is why each one is flawed and what to do instead:</p>
+        <ul>
+          <li><strong>Appeal to fear</strong> — Fake virus counts create panic so you skip thinking. Real antivirus scanners never appear as browser pop-ups.</li>
+          <li><strong>Slippery slope</strong> — Chains unlikely worst-case events as if each step is inevitable. One problem does not guarantee all the others.</li>
+          <li><strong>Appeal to authority</strong> — Invokes "Microsoft" with no proof. Microsoft never contacts you through browser pop-ups.</li>
+          <li><strong>Bandwagon</strong> — "5 million users" is unverifiable. Popularity does not mean safety.</li>
+          <li><strong>Appeal to novelty</strong> — "Newest AI" is a buzzword, not evidence of quality or safety.</li>
+          <li><strong>False cause</strong> — One person's anecdote proves nothing. Correlation is not causation.</li>
+          <li><strong>False dilemma</strong> — Only two options are shown to force a click. You always have more choices, including closing the tab.</li>
+          <li><strong>Ad hominem</strong> — Insults you for not complying, bypassing logic entirely.</li>
+          <li><strong>Fake urgency</strong> — Countdown timers stop you thinking critically. Real security threats do not arrive via browser pop-up timers.</li>
+        </ul>
+        <p><strong>What to do:</strong> Close the tab immediately. Never click "install." Use trusted antivirus software such as Windows Defender or Malwarebytes — never software promoted through a pop-up.</p>
+      </div>
+
+    </div><!-- /#scam-box -->
+    </div><!-- /#scam-layout -->
+  </div><!-- /#scam-modal -->
 
   <script src="script.js"></script>
 </body>
